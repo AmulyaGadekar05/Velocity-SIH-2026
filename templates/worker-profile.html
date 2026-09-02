@@ -54,7 +54,7 @@
           <p><strong>Address:</strong> {{ b.address }}</p>
           <p><strong>Date:</strong> {{ b.booking_date }}</p>
           <p><strong>Note:</strong> {{ b.note }}</p>
-          <button class="btn-primary" onclick="markCompleted({{ b.id }})">Mark Job Completed</button>
+          <button class="btn-primary" onclick="markCompleted('{{ b.id }}')">Mark Job Completed</button>
         </div>
         {% endfor %}
       {% else %}

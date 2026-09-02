@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import Flask, request, jsonify, send_from_directory, render_template, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
@@ -74,8 +74,8 @@ with app.app_context():
 
 # ── Routes ──────────────────────────────────────────────────────────────────
 @app.route('/style.css')
-def style():
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'style.css')
+def serve_css():
+    return send_from_directory('.', 'style.css')
 
 @app.route('/assets/<path:filename>')
 def assets(filename):
@@ -267,11 +267,4 @@ def complete_job(booking_id):
     
     return jsonify({"success": True, "message": "Job marked as completed"})
 
-if __name__ == "__main__":
-    # We must remove the existing sqlite file to avoid schema mismatch
-    if os.path.exists("sahayog.db"):
-        try:
-            os.remove("sahayog.db")
-        except:
-            pass
-    app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == '__main__': app.run(host='0.0.0.0', port=5000, debug=True)
