@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Worker Dashboard - Sahayog</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body { padding-top: 80px; }
+    .worker-dash { max-width: 800px; margin: 0 auto; padding: 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; }
+    .status-badge { padding: 8px 16px; border-radius: 20px; font-weight: bold; }
+    .status-available { background: rgba(0,201,167,.2); color: var(--teal); }
+    .status-busy { background: rgba(255,101,132,.2); color: var(--error); }
+    .mic-btn { background: var(--primary); color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(108,99,255,.4); }
+    .mic-btn.recording { animation: pulse 1s infinite; background: var(--accent); }
+    .mic-hint { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <div class="logo">
+        <span class="logo-text">Sahayog Worker</span>
+      </div>
+      <div id="nav-auth-area" style="display: flex; gap: 10px; align-items: center;">
+        <div class="user-chip" style="display: flex; align-items: center; gap: 8px;">
+          <span class="user-name">{{ user.name }}</span>
+        </div>
+        <a href="/logout" class="nav-cta">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="worker-dash">
+    <h1>Welcome, {{ user.name }}</h1>
+    
+    <div class="card">
+      <h2>Current Status: 
+        {% if worker.availability_status == 'available' %}
+          <span class="status-badge status-available">🟢 Available</span>
+        {% else %}
+          <span class="status-badge status-busy">⏳ On Active Job</span>
+        {% endif %}
+      </h2>
+      <p>Rating: {{ worker.rating }} ★ | Experience: {{ worker.experience_years }} yrs</p>
+    </div>
+
+    <div class="card">
+      <h2>Active Bookings</h2>
+      {% if active_bookings %}
+        {% for b in active_bookings %}
+        <div style="border:1px solid var(--border); padding:16px; border-radius:8px; margin-top:12px;">
+          <p><strong>Service:</strong> {{ b.service }}</p>
+          <p><strong>Address:</strong> {{ b.address }}</p>
+          <p><strong>Date:</strong> {{ b.booking_date }}</p>
+          <p><strong>Note:</strong> {{ b.note }}</p>
+          <button class="btn-primary" onclick="markCompleted({{ b.id }})">Mark Job Completed</button>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p>No active bookings right now.</p>
+      {% endif %}
+    </div>
+
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <h2>Update Profile Info</h2>
+          <p class="mic-hint">Tap the mic and speak to auto-fill (e.g. "I am an Electrician in Pune")</p>
+        </div>
+        <button class="mic-btn" id="mic-btn" title="Tap to Speak">🎙️</button>
+      </div>
+      
+      <div class="form-group" style="margin-top:20px;">
+        <label>Service/Trade</label>
+        <input type="text" id="prof-service" value="{{ worker.service }}" style="width:100%; padding:10px; background:var(--dark2); color:white; border:1px solid var(--border); border-radius:8px;">
+      </div>
+      <div class="form-group" style="margin-top:12px;">
+        <label>Location</label>
+        <input type="text" id="prof-location" value="{{ worker.location }}" style="width:100%; padding:10px; background:var(--dark2); color:white; border:1px solid var(--border); border-radius:8px;">
+      </div>
+      <p id="speech-status" style="color:var(--teal); margin-top:10px; display:none;">Listening...</p>
+    </div>
+  </div>
+
+  <script>
+    async function markCompleted(bookingId) {
+      const res = await fetch(`/api/complete-job/${bookingId}`, { method: 'POST' });
+      const data = await res.json();
+      if(data.success) {
+        window.location.reload();
+      } else {
+        alert(data.message);
+      }
+    }
+
+    // Web Speech API Integration
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      
+      const micBtn = document.getElementById('mic-btn');
+      const statusText = document.getElementById('speech-status');
+      const serviceInput = document.getElementById('prof-service');
+      const locationInput = document.getElementById('prof-location');
+      
+      let isRecording = false;
+
+      micBtn.addEventListener('click', () => {
+        if(isRecording) {
+          recognition.stop();
+          return;
+        }
+        
+        // Toggle language based on user context or just allow the browser to auto-detect. 
+        // We set to hi-IN but it generally captures en-IN well too if spoken.
+        recognition.lang = 'hi-IN'; 
+        
+        recognition.start();
+        isRecording = true;
+        micBtn.classList.add('recording');
+        statusText.style.display = 'block';
+        statusText.textContent = 'Listening (Hindi/English)...';
+      });
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.toLowerCase();
+        statusText.textContent = 'Heard: "' + transcript + '"';
+        
+        // Basic NLP parsing
+        if(transcript.includes('electrician') || transcript.includes('bijli')) {
+          serviceInput.value = 'Electrician';
+        } else if(transcript.includes('plumb') || transcript.includes('pani') || transcript.includes('pipe')) {
+          serviceInput.value = 'Plumbing';
+        } else if(transcript.includes('clean') || transcript.includes('saaf')) {
+          serviceInput.value = 'Cleaning';
+        } else if(transcript.includes('carpenter') || transcript.includes('lakdi')) {
+          serviceInput.value = 'Carpentry';
+        } else if(transcript.includes('paint') || transcript.includes('rang')) {
+          serviceInput.value = 'Painting';
+        } else if(transcript.includes('ac ') || transcript.includes('ac repair')) {
+          serviceInput.value = 'AC Repair';
+        }
+
+        // Extremely basic location extraction (assuming "in Pune" or "Pune mein")
+        const cities = ['mumbai', 'pune', 'delhi', 'bangalore', 'chennai', 'kolkata'];
+        for(let city of cities) {
+          if(transcript.includes(city)) {
+            locationInput.value = city.charAt(0).toUpperCase() + city.slice(1);
+            break;
+          }
+        }
+      };
+
+      recognition.onerror = (event) => {
+        statusText.textContent = 'Error: ' + event.error;
+        stopRecording();
+      };
+      
+      recognition.onend = () => stopRecording();
+      
+      function stopRecording() {
+        isRecording = false;
+        micBtn.classList.remove('recording');
+        setTimeout(() => { statusText.style.display = 'none'; }, 3000);
+      }
+    } else {
+      document.getElementById('mic-btn').style.display = 'none';
+      document.querySelector('.mic-hint').textContent = 'Voice input not supported in this browser.';
+    }
+  </script>
+</body>
+</html>

@@ -61,80 +61,7 @@
   <!-- ── Toast Notification ─────────────────────────────────────────── -->
   <div id="toast" role="alert" aria-live="polite"></div>
 
-  <!-- ── Auth Modal (Login & Sign Up) ───────────────────────────────── -->
-  <div id="login-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-heading">
-    <div class="login-card">
-      <button class="login-close-btn" id="login-close-btn" aria-label="Close">&#10005;</button>
-
-      <!-- Brand inside modal -->
-      <div class="modal-brand">
-        <img src="assets/logo.png" alt="Sahayog Logo" />
-        <span class="modal-brand-text">Sahayog</span>
-      </div>
-
-      <!-- Toggle Tabs -->
-      <div class="auth-tabs" role="tablist">
-        <button class="auth-tab-btn active" id="auth-tab-login" role="tab" aria-selected="true" aria-controls="auth-panel-login">Log In</button>
-        <button class="auth-tab-btn" id="auth-tab-signup" role="tab" aria-selected="false" aria-controls="auth-panel-signup">Sign Up</button>
-      </div>
-
-      <!-- ── Login Panel ── -->
-      <div class="auth-panel active" id="auth-panel-login" role="tabpanel" aria-labelledby="auth-tab-login">
-        <form id="login-form" novalidate autocomplete="on">
-          <div class="login-field">
-            <label for="login-email">Email / Phone</label>
-            <input type="text" id="login-email" name="email"
-              placeholder="Enter your email or phone" autocomplete="email" required />
-          </div>
-          <div class="login-field">
-            <label for="login-password">Password</label>
-            <input type="password" id="login-password" name="password"
-              placeholder="Enter your password" autocomplete="current-password" required />
-          </div>
-          <div class="auth-error" id="login-error" role="alert"></div>
-          <button type="submit" class="login-submit-btn" id="login-submit-btn">Log In →</button>
-        </form>
-        <p class="auth-switch-hint">
-          Don't have an account? <span class="auth-switch-link" id="switch-to-signup">Sign up</span>
-        </p>
-      </div>
-
-      <!-- ── Sign Up Panel ── -->
-      <div class="auth-panel auth-panel-signup" id="auth-panel-signup" role="tabpanel" aria-labelledby="auth-tab-signup">
-        <form id="signup-form" novalidate autocomplete="on">
-          <div class="login-field">
-            <label for="signup-name">Full Name</label>
-            <input type="text" id="signup-name" name="name"
-              placeholder="e.g. Priya Sharma" autocomplete="name" required />
-          </div>
-          <div class="login-field">
-            <label for="signup-phone">Phone Number</label>
-            <input type="tel" id="signup-phone" name="phone"
-              placeholder="e.g. 9876543210" autocomplete="tel" required />
-          </div>
-          <div class="login-field">
-            <label for="signup-role">I am a…</label>
-            <select id="signup-role" name="role" required>
-              <option value="" disabled selected>Select your role…</option>
-              <option value="Client">Client (looking for services)</option>
-              <option value="Sahayogi Worker">Sahayogi Worker (offering services)</option>
-            </select>
-          </div>
-          <div class="login-field">
-            <label for="signup-password">Create Password</label>
-            <input type="password" id="signup-password" name="password"
-              placeholder="Create a strong password" autocomplete="new-password" required />
-          </div>
-          <div class="auth-error" id="signup-error" role="alert"></div>
-          <button type="submit" class="login-submit-btn" id="signup-submit-btn">Create Account →</button>
-        </form>
-        <p class="auth-switch-hint">
-          Already have an account? <span class="auth-switch-link" id="switch-to-login">Log in</span>
-        </p>
-      </div>
-
-    </div>
-  </div>
+  
 
   <!-- ── AI Smart Match Modal ───────────────────────────────────── -->
   <div id="ai-overlay" role="dialog" aria-modal="true" aria-labelledby="ai-modal-heading">
@@ -258,12 +185,17 @@
         <li><a href="#booking" id="nav-book">Book Now</a></li>
       </ul>
       <!-- Auth area: toggled by JS -->
-      <div id="nav-auth-area">
-        <!-- Logged-out state -->
-        <button id="login-btn">Login</button>
-        <!-- Logged-in state (hidden until auth) -->
-        <div id="user-chip" style="display:none;">
-          <div class="avatar" id="user-avatar">U</div>
+      <div id="nav-auth-area" style="display: flex; gap: 10px; align-items: center;">
+  {% if user %}
+    <div class="user-chip" style="display: flex; align-items: center; gap: 8px;">
+      <div class="user-avatar" style="width:32px; height:32px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">{{ user.name[:2]|upper }}</div>
+      <span class="user-name">{{ user.name }}</span>
+    </div>
+    <a href="/logout" class="nav-cta">Logout</a>
+  {% else %}
+    <a href="/login" class="nav-cta">Login / Sign Up</a>
+  {% endif %}
+</div>
           <span id="user-name-display">User</span>
         </div>
         <button id="logout-btn" style="display:none;">Logout</button>
@@ -394,6 +326,7 @@
       <!-- ── Booking Form ───────────────────────────────────────────── -->
       <div class="form-card" id="book-form-wrapper">
         <form id="booking-form" novalidate>
+          <input type="hidden" id="book-worker" name="worker_name" value="" />
           <div class="form-grid">
             <div class="form-group">
               <label for="book-name">Full Name</label>
@@ -439,42 +372,7 @@
         </form>
       </div>
 
-      <!-- ── Worker Registration Form ───────────────────────────────── -->
-      <div class="form-card" id="worker-form-wrapper" style="display:none;">
-        <form id="worker-form" novalidate>
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="w-name">Full Name</label>
-              <input type="text" id="w-name" name="name" placeholder="e.g. Ravi Kumar" required autocomplete="name" />
-            </div>
-            <div class="form-group">
-              <label for="w-phone">Phone Number</label>
-              <input type="tel" id="w-phone" name="phone" placeholder="e.g. 9876543210" required autocomplete="tel" />
-            </div>
-            <div class="form-group">
-              <label for="w-service">Your Skill / Service</label>
-              <select id="w-service" name="service" required>
-                <option value="" disabled selected>Select your skill…</option>
-                <option>Plumbing</option>
-                <option>Cleaning</option>
-                <option>Electrician</option>
-                <option>Cooking</option>
-                <option>Carpentry</option>
-                <option>Babysitting</option>
-                <option>Gardening</option>
-                <option>Moving Help</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="w-location">Your City / Location</label>
-              <input type="text" id="w-location" name="location" placeholder="e.g. Mumbai" required
-                autocomplete="address-level2" />
-            </div>
-            <div class="form-group full">
-              <label for="w-experience">Years of Experience</label>
-              <input type="number" id="w-experience" name="experience" placeholder="e.g. 3" min="0" max="50" />
-            </div>
-          </div>
+      
           <button type="submit" class="submit-btn" id="worker-submit-btn"> Join the Cooperative</button>
         </form>
       </div>
@@ -505,21 +403,7 @@
     /* ──────────────────────────────────────────────────────────────────
        AUTH — localStorage session simulation (Sahayog)
     ────────────────────────────────────────────────────────────────── */
-    const AUTH = {
-      isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
-      userName:   () => localStorage.getItem('userName') || '',
-      userRole:   () => localStorage.getItem('userRole') || '',
-      login(name, role) {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userName',   name);
-        localStorage.setItem('userRole',   role || 'Client');
-      },
-      logout() {
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('userRole');
-      }
-    };
+    const AUTH = { isLoggedIn: () => {% if user %}true{% else %}false{% endif %}, userName: () => '{% if user %}{{ user.name }}{% endif %}' };
 
     /* ── DOM refs ───────────────────────────────────────────────────── */
     const loginOverlay    = document.getElementById('login-overlay');
@@ -538,66 +422,7 @@
     const panelLogin      = document.getElementById('auth-panel-login');
     const panelSignup     = document.getElementById('auth-panel-signup');
 
-    /* ── Auth Tab Switcher ──────────────────────────────────────────── */
-    function switchAuthTab(tab) {
-      if (tab === 'login') {
-        authTabLogin.classList.add('active');
-        authTabLogin.setAttribute('aria-selected', 'true');
-        authTabSignup.classList.remove('active');
-        authTabSignup.setAttribute('aria-selected', 'false');
-        panelLogin.classList.add('active');
-        panelSignup.classList.remove('active');
-        panelLogin.style.animationName = 'authFadeIn';
-        loginErrorEl.classList.remove('visible');
-        loginForm.reset();
-        setTimeout(() => document.getElementById('login-email').focus(), 50);
-      } else {
-        authTabSignup.classList.add('active');
-        authTabSignup.setAttribute('aria-selected', 'true');
-        authTabLogin.classList.remove('active');
-        authTabLogin.setAttribute('aria-selected', 'false');
-        panelSignup.classList.add('active');
-        panelLogin.classList.remove('active');
-        panelSignup.style.animationName = 'authFadeInLeft';
-        signupErrorEl.classList.remove('visible');
-        signupForm.reset();
-        setTimeout(() => document.getElementById('signup-name').focus(), 50);
-      }
-    }
-
-    authTabLogin.addEventListener('click',  () => switchAuthTab('login'));
-    authTabSignup.addEventListener('click', () => switchAuthTab('signup'));
-    document.getElementById('switch-to-signup').addEventListener('click', () => switchAuthTab('signup'));
-    document.getElementById('switch-to-login').addEventListener('click',  () => switchAuthTab('login'));
-
-    /* ── Update navbar UI based on auth state ───────────────────────── */
-    function refreshAuthUI() {
-      if (AUTH.isLoggedIn()) {
-        const name = AUTH.userName();
-        const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || name.slice(0, 2).toUpperCase();
-        userNameDisplay.textContent = name;
-        userAvatar.textContent      = initials;
-        loginBtn.style.display      = 'none';
-        userChip.style.display      = 'flex';
-        logoutBtn.style.display     = 'inline-flex';
-      } else {
-        loginBtn.style.display      = '';
-        userChip.style.display      = 'none';
-        logoutBtn.style.display     = 'none';
-      }
-    }
-
-    /* ── Open / close modal ─────────────────────────────────────────── */
-    function openLoginModal(tab) {
-      loginOverlay.classList.add('open');
-      switchAuthTab(tab || 'login');
-    }
-
-    function closeLoginModal() {
-      loginOverlay.classList.remove('open');
-    }
-
-    loginBtn.addEventListener('click', () => openLoginModal('login'));
+    /* Auth UI managed by Jinja */
     loginCloseBtn.addEventListener('click', closeLoginModal);
 
     // Close on backdrop click
@@ -859,6 +684,13 @@
     /* ── Booking Form Submit ─────────────────────────────────────────── */
     document.getElementById('booking-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      if (!AUTH.isLoggedIn()) {
+        showToast('⚠️ Please log in to complete your booking.', 'error');
+        openLoginModal('login');
+        return;
+      }
+
       const btn = document.getElementById('book-submit-btn');
       const form = e.target;
       const data = {
@@ -868,6 +700,7 @@
         date: document.getElementById('book-date').value,
         address: document.getElementById('book-address').value.trim(),
         note: document.getElementById('book-note').value.trim(),
+        worker_name: document.getElementById('book-worker') ? document.getElementById('book-worker').value : '',
       };
 
       // Client-side validation
@@ -909,6 +742,13 @@
     /* ── Worker Registration Form Submit ────────────────────────────── */
     document.getElementById('worker-form').addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      if (!AUTH.isLoggedIn()) {
+        showToast('⚠️ Please sign up or log in before registering as a Sahayogi Worker.', 'error');
+        openLoginModal('signup');
+        return;
+      }
+
       const btn = document.getElementById('worker-submit-btn');
       const form = e.target;
       const data = {
@@ -1199,20 +1039,32 @@
         const bookingSection = document.getElementById('booking');
         if (bookingSection) bookingSection.scrollIntoView({ behavior: 'smooth' });
 
+        // Switch to booking tab explicitly
+        const tabBookBtn = document.getElementById('tab-book');
+        if (tabBookBtn) tabBookBtn.click();
+
         // Pre-fill booking form fields
         setTimeout(() => {
           const fieldMap = {
-            'booking-service': matchedWorker.service,
-            'booking-note':    userProblemText,
+            'book-service': matchedWorker.service,
+            'book-note':    userProblemText,
+            'book-worker':  matchedWorker.name
           };
           for (const [id, val] of Object.entries(fieldMap)) {
             const el = document.getElementById(id);
-            if (el) el.value = val;
+            if (el) {
+              el.value = val;
+              el.dispatchEvent(new Event('change'));
+              el.dispatchEvent(new Event('input'));
+            }
           }
           // If logged in, pre-fill name/phone from auth
           if (AUTH.isLoggedIn()) {
-            const nameEl = document.getElementById('booking-name');
-            if (nameEl && !nameEl.value) nameEl.value = AUTH.userName();
+            const nameEl = document.getElementById('book-name');
+            if (nameEl && !nameEl.value) {
+              nameEl.value = AUTH.userName();
+              nameEl.dispatchEvent(new Event('input'));
+            }
           }
           showToast(`\uD83E\uDD16 AI matched: ${matchedWorker.name} (${matchedWorker.service}). Fill in your details below!`, 'success');
         }, 600);

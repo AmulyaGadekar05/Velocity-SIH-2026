@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Sahayog</title>
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    body { display: flex; align-items: center; justify-content: center; height: 100vh; }
+    .auth-card { position: static; max-width: 400px; width: 100%; box-shadow: var(--shadow); }
+    .auth-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .auth-tab { flex: 1; text-align: center; padding: 10px; cursor: pointer; border-bottom: 2px solid transparent; }
+    .auth-tab.active { border-bottom-color: var(--primary); color: var(--primary); font-weight: bold; }
+    .auth-panel { display: none; }
+    .auth-panel.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="auth-card">
+    <h2>Sahayog Authentication</h2>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login">Login</div>
+      <div class="auth-tab" id="tab-signup">Sign Up</div>
+    </div>
+    
+    <div class="auth-panel active" id="panel-login">
+      <form id="login-form">
+        <div class="auth-field">
+          <label>Phone Number</label>
+          <input type="tel" id="login-phone" required>
+        </div>
+        <button type="submit" class="auth-submit">Login</button>
+      </form>
+    </div>
+    
+    <div class="auth-panel" id="panel-signup">
+      <form id="signup-form">
+        <div class="auth-field">
+          <label>Name</label>
+          <input type="text" id="signup-name" required>
+        </div>
+        <div class="auth-field">
+          <label>Phone Number</label>
+          <input type="tel" id="signup-phone" required>
+        </div>
+        <div class="auth-field">
+          <label>Role</label>
+          <select id="signup-role" required style="width:100%; padding:8px 10px; background:var(--dark2); color:var(--text); border:1px solid var(--border); border-radius:var(--radius);">
+            <option value="client">Client</option>
+            <option value="worker">Worker</option>
+          </select>
+        </div>
+        <div id="worker-fields" style="display:none;">
+          <div class="auth-field">
+            <label>Service/Trade</label>
+            <input type="text" id="signup-service">
+          </div>
+          <div class="auth-field">
+            <label>Location</label>
+            <input type="text" id="signup-location">
+          </div>
+        </div>
+        <button type="submit" class="auth-submit">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('tab-login').onclick = () => {
+      document.getElementById('tab-login').classList.add('active');
+      document.getElementById('tab-signup').classList.remove('active');
+      document.getElementById('panel-login').classList.add('active');
+      document.getElementById('panel-signup').classList.remove('active');
+    };
+    document.getElementById('tab-signup').onclick = () => {
+      document.getElementById('tab-signup').classList.add('active');
+      document.getElementById('tab-login').classList.remove('active');
+      document.getElementById('panel-signup').classList.add('active');
+      document.getElementById('panel-login').classList.remove('active');
+    };
+    
+    document.getElementById('signup-role').onchange = (e) => {
+      document.getElementById('worker-fields').style.display = e.target.value === 'worker' ? 'block' : 'none';
+    };
+
+    document.getElementById('login-form').onsubmit = async (e) => {
+      e.preventDefault();
+      const phone = document.getElementById('login-phone').value;
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({phone})
+      });
+      const data = await res.json();
+      if(data.success) {
+        window.location.href = '/';
+      } else {
+        alert(data.message);
+      }
+    };
+    
+    document.getElementById('signup-form').onsubmit = async (e) => {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('signup-name').value,
+        phone: document.getElementById('signup-phone').value,
+        role: document.getElementById('signup-role').value,
+      };
+      if (payload.role === 'worker') {
+        payload.service = document.getElementById('signup-service').value;
+        payload.location = document.getElementById('signup-location').value;
+      }
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if(data.success) {
+        window.location.href = '/';
+      } else {
+        alert(data.message);
+      }
+    };
+  </script>
+</body>
+</html>
