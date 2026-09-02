@@ -1,144 +1,37 @@
-https://share.gemini.google/0ywGV6UYXNaF
+Keep the existing 3-file structure (index.html, app.py, requirements.txt). Do not create new files. Apply the following 4 updates directly to index.html:
 
-above is the gemini link for the chat
+1. Fix the Hero Buttons:
 
+Ensure the 'Book a Service' and 'Become a Worker' buttons in the Hero section work properly on click.
 
+'Book a Service' should smoothly scroll to the booking section (#booking-section or equivalent) and activate the Booking tab.
 
+'Become a Worker' should smoothly scroll to the worker registration section and activate the Worker tab.
 
+Fix any broken event listeners or mismatched target IDs in the JavaScript.
 
-*********************************************************************************************************************************
+2. Font Change (Baloo Bhai 2):
 
-the first prompt
+Import Google Font 'Baloo Bhai 2' via a <link> tag in the <head> of index.html.
 
-Act as an expert full-stack developer assisting a beginner team for a hackathon. We are short on time and need an easy-to-manage, working prototype.
+Set font-family: 'Baloo Bhai 2', sans-serif; globally across the entire UI.
 
-Build the project using ONLY a simple 3-file structure:
+3. Floating Icons on Scroll:
 
-index.html (contains our HTML layout, modern CSS styling, and client-side JavaScript)
+Add lightweight, floating decorative background icons (e.g., wrench, hammer, lightning, briefcases using simple SVG or CSS shapes) that float gently with subtle animation as the user scrolls, staying within the dark theme styling.
 
-app.py (lightweight Python Flask backend with flask-cors)
+4. Quick Support / Get Help Window (Frontend Only):
 
-requirements.txt (only flask and flask-cors)
+Add a floating circular 'Help / Support' button in the bottom-right corner.
 
-Rules:
+Clicking it opens a compact slide-up support popup/modal with:
 
-Do NOT use React, Next.js, Vite, TypeScript, or nested component folders.
+A quick FAQ or help message: "Need assistance? Reach our 24/7 SIH Hackathon desk at support@velocitygig.in or call +91-9876543210."
 
-For our project idea: [Cooperative Gig Services Platform for Household & Community Services].
+A simple text input for a query and a 'Send Message' button.
 
-Build the core landing screen and the main input form.
+Do NOT connect this to the backend API. On clicking 'Send', just display a success message: "Thank you! Our support team will reach out shortly." and auto-close after 2 seconds.
 
-Ensure every <input> and <button> has working JavaScript event listeners attached.
-
-Provide the exact 2 terminal commands to install packages and start the app on localhost."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Prompt 2: Connect Frontend to Backend (No Broken Mocks)
-
-"Now connect the form in index.html to app.py:
-
-In app.py, write a real POST route (/api/submit) that accepts JSON input, processes it, and returns a JSON response.
-
-In index.html, write a vanilla JS fetch() call on form submit that sends the inputs to /api/submit.
-
-Display the returned response dynamically inside a result <div> on the page without refreshing.
-
-Do not add new files or dependencies. Keep everything inside index.html and app.py."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Prompt 3: Instant Mock Authentication (Zero Setup)
-
-"Add a clean, working login modal to index.html:
-
-Do NOT use complex database auth, OAuth, or external auth providers.
-
-Use browser localStorage to simulate a session.
-
-Any username/password entered should successfully 'log in', save isLoggedIn = true to localStorage, hide the login form, and display the user's name on the dashboard.
-
-Add a simple 'Logout' button that clears localStorage and resets the view."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Prompt 4: Emergency Bug Fixer (Use When Code Breaks)
-"The form/button is not responding when clicked. Do not create new files. Inspect index.html and app.py and fix:
-
-Check browser console errors and ensure IDs in the HTML match the JavaScript document.getElementById calls.
-
-Ensure CORS is enabled in app.py so the browser doesn't block the request.
-
-Add console.log() statements on every step so we can track the data flow in the browser DevTools (F12).
-
-
-
-
-**********************************************************************************************************************************
-
+Include a simple close (✕) button."*
 
 
