@@ -802,6 +802,245 @@
         align-items: center;
       }
     }
+
+    /* ── Login Modal ──────────────────────────────────────────────── */
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, .65);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+
+    #login-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 44px 40px 36px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(108,99,255,.15);
+      transform: translateY(24px) scale(.97);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+      opacity: 0;
+      position: relative;
+    }
+
+    #login-overlay.open .login-card {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .login-card .login-logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .login-card h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .login-card .login-sub {
+      color: var(--muted);
+      font-size: .85rem;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .login-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .login-field label {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .login-field input {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 13px 16px;
+      font-size: .95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .login-field input::placeholder {
+      color: var(--muted);
+    }
+
+    .login-field input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108,99,255,.18);
+    }
+
+    #login-error {
+      color: var(--error);
+      font-size: .83rem;
+      font-weight: 500;
+      min-height: 18px;
+      margin-bottom: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    #login-error.visible {
+      display: block;
+    }
+
+    .login-submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .02em;
+      transition: transform .22s, box-shadow .22s;
+      box-shadow: var(--shadow);
+    }
+
+    .login-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(108,99,255,.5);
+    }
+
+    .login-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color .2s;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .login-close-btn:hover {
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+    }
+
+    .login-hint {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    /* ── Navbar Auth Chip ─────────────────────────────────────────── */
+    #nav-auth-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #login-btn {
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    #login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(108,99,255,.45);
+    }
+
+    #user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(108,99,255,.15);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 6px 14px 6px 8px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    #user-chip .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    #logout-btn {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid rgba(255,101,132,.35);
+      border-radius: 9px;
+      padding: 8px 16px;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s;
+      font-family: inherit;
+    }
+
+    #logout-btn:hover {
+      background: rgba(255,101,132,.12);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 640px) {
+      .login-card {
+        padding: 32px 22px 28px;
+        margin: 0 16px;
+      }
+    }
   </style>
 </head>
 
@@ -809,6 +1048,33 @@
 
   <!-- ── Toast Notification ─────────────────────────────────────────── -->
   <div id="toast" role="alert" aria-live="polite"></div>
+
+  <!-- ── Login Modal ───────────────────────────────────────────────── -->
+  <div id="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-heading">
+    <div class="login-card">
+      <button class="login-close-btn" id="login-close-btn" aria-label="Close login">&#10005;</button>
+      <span class="login-logo">⚡ VelocityGig</span>
+      <h2 id="login-heading">Welcome Back</h2>
+      <p class="login-sub">Sign in to book services &amp; manage your account</p>
+
+      <form id="login-form" novalidate autocomplete="on">
+        <div class="login-field">
+          <label for="login-username">Username</label>
+          <input type="text" id="login-username" name="username"
+            placeholder="Enter any username" autocomplete="username" required />
+        </div>
+        <div class="login-field">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password"
+            placeholder="Enter any password" autocomplete="current-password" required />
+        </div>
+        <div id="login-error" role="alert"></div>
+        <button type="submit" class="login-submit-btn" id="login-submit-btn">Sign In →</button>
+      </form>
+
+      <p class="login-hint">💡 Any username &amp; password will work — this is a demo.</p>
+    </div>
+  </div>
 
   <!-- ── Navbar ─────────────────────────────────────────────────────── -->
   <nav id="navbar">
@@ -820,7 +1086,17 @@
         <li><a href="#how" id="nav-how">How It Works</a></li>
         <li><a href="#booking" id="nav-book">Book Now</a></li>
       </ul>
-      <button class="nav-cta" id="nav-cta-btn">Join as Worker</button>
+      <!-- Auth area: toggled by JS -->
+      <div id="nav-auth-area">
+        <!-- Logged-out state -->
+        <button id="login-btn">Login</button>
+        <!-- Logged-in state (hidden until auth) -->
+        <div id="user-chip" style="display:none;">
+          <div class="avatar" id="user-avatar">U</div>
+          <span id="user-name-display">User</span>
+        </div>
+        <button id="logout-btn" style="display:none;">Logout</button>
+      </div>
     </div>
   </nav>
 
@@ -1046,6 +1322,112 @@
   ═══════════════════════════════════════════════════════════════════ -->
   <script>
     'use strict';
+
+    /* ──────────────────────────────────────────────────────────────────
+       AUTH — localStorage session simulation
+    ────────────────────────────────────────────────────────────────── */
+    const AUTH = {
+      isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
+      userName: () => localStorage.getItem('userName') || '',
+      login(name) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userName', name);
+      },
+      logout() {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userName');
+      }
+    };
+
+    /* ── DOM refs ───────────────────────────────────────────────────── */
+    const loginOverlay    = document.getElementById('login-overlay');
+    const loginForm       = document.getElementById('login-form');
+    const loginErrorEl    = document.getElementById('login-error');
+    const loginBtn        = document.getElementById('login-btn');      // navbar Login
+    const logoutBtn       = document.getElementById('logout-btn');
+    const userChip        = document.getElementById('user-chip');
+    const userNameDisplay = document.getElementById('user-name-display');
+    const userAvatar      = document.getElementById('user-avatar');
+    const loginCloseBtn   = document.getElementById('login-close-btn');
+
+    /* ── Update navbar UI based on auth state ───────────────────────── */
+    function refreshAuthUI() {
+      if (AUTH.isLoggedIn()) {
+        const name = AUTH.userName();
+        const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || name.slice(0, 2).toUpperCase();
+        userNameDisplay.textContent = name;
+        userAvatar.textContent = initials;
+        loginBtn.style.display  = 'none';
+        userChip.style.display  = 'flex';
+        logoutBtn.style.display = 'inline-flex';
+      } else {
+        loginBtn.style.display  = '';
+        userChip.style.display  = 'none';
+        logoutBtn.style.display = 'none';
+      }
+    }
+
+    /* ── Open / close modal ─────────────────────────────────────────── */
+    function openLoginModal() {
+      loginOverlay.classList.add('open');
+      document.getElementById('login-username').focus();
+      loginErrorEl.classList.remove('visible');
+      loginForm.reset();
+    }
+
+    function closeLoginModal() {
+      loginOverlay.classList.remove('open');
+    }
+
+    loginBtn.addEventListener('click', openLoginModal);
+    loginCloseBtn.addEventListener('click', closeLoginModal);
+
+    // Close on backdrop click
+    loginOverlay.addEventListener('click', (e) => {
+      if (e.target === loginOverlay) closeLoginModal();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && loginOverlay.classList.contains('open')) closeLoginModal();
+    });
+
+    /* ── Login form submit ──────────────────────────────────────────── */
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      if (!username) {
+        loginErrorEl.textContent = 'Please enter a username.';
+        loginErrorEl.classList.add('visible');
+        document.getElementById('login-username').focus();
+        return;
+      }
+      if (!password) {
+        loginErrorEl.textContent = 'Please enter a password.';
+        loginErrorEl.classList.add('visible');
+        document.getElementById('login-password').focus();
+        return;
+      }
+
+      // Simulate successful login — any credentials work
+      AUTH.login(username);
+      closeLoginModal();
+      refreshAuthUI();
+      showToast(`👋 Welcome, ${username}! You're now logged in.`, 'success');
+    });
+
+    /* ── Logout ─────────────────────────────────────────────────────── */
+    logoutBtn.addEventListener('click', () => {
+      const name = AUTH.userName();
+      AUTH.logout();
+      refreshAuthUI();
+      showToast(`👋 Goodbye, ${name}! You've been logged out.`, 'success');
+    });
+
+    /* ── Restore session on page load ───────────────────────────────── */
+    refreshAuthUI();
 
     const API = 'http://127.0.0.1:5000/api';
 
