@@ -84,8 +84,34 @@ Click Logout	localStorage.removeItem(...), resets navbar, fires goodbye toast
 
 Prompt4
 
+All 4 updates have been applied to 
+
+index.html
+. Here's a summary:
+
+Changes Made
+Hero Buttons Fixed
+
+Root cause: Line 1583 had document.getElementById('nav-cta-btn') referencing a non-existent element, which threw an error and blocked all subsequent JS (including the hero button listeners). Removed that dead code.
+Hero buttons now activate the correct tab immediately (no setTimeout race), then smooth-scroll to #booking.
+Font → Baloo Bhai 2
+
+Replaced the Google Fonts <link> from Inter to Baloo Bhai 2 (wght 400–800).
+Updated body { font-family } globally.
+Floating Decorative Icons
+
+Added 8 tool-themed SVG icons (wrench, hammer, lightning, briefcase, paintbrush, gear, plug, water droplet) inside a fixed container with very low opacity (~4.5%) to stay subtle.
+CSS floatDrift keyframe animation for gentle bobbing.
+JS parallax: each icon drifts at a random speed on scroll via requestAnimationFrame (throttled, passive listener).
+Support Widget
+
+Circular chat-bubble FAB button (bottom-right, z-index: 900).
+Slide-up popup with gradient header, ✕ close button, FAQ text with contact details, text input + Send button.
+On Send: shows success message → auto-closes after 2 seconds → resets to original state.
+Uses event delegation — no re-binding needed after DOM resets. Fully frontend-only, no API calls.
 
 
+********************************************************************************************************************
 
 
 

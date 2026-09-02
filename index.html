@@ -8,7 +8,8 @@
   <meta name="description"
     content="Connecting households with verified local gig workers for plumbing, cleaning, electrical, cooking, carpentry, and more – cooperative model ensuring fair pay." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap"
     rel="stylesheet" />
   <style>
     /* ── Design Tokens ────────────────────────────────────────────── */
@@ -44,7 +45,7 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Baloo Bhai 2', sans-serif;
       background: var(--dark);
       color: var(--text);
       min-height: 100vh;
@@ -803,6 +804,186 @@
       }
     }
 
+    /* ── Floating Decorative Icons ─────────────────────────────────── */
+    .floating-icons-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-icon {
+      position: absolute;
+      opacity: 0.045;
+      color: var(--primary);
+      will-change: transform;
+      animation: floatDrift 18s ease-in-out infinite;
+    }
+
+    .floating-icon:nth-child(2n) { color: var(--teal); animation-duration: 22s; }
+    .floating-icon:nth-child(3n) { color: var(--accent); animation-duration: 26s; }
+
+    @keyframes floatDrift {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25%      { transform: translateY(-30px) rotate(8deg); }
+      50%      { transform: translateY(-15px) rotate(-5deg); }
+      75%      { transform: translateY(-40px) rotate(4deg); }
+    }
+
+    /* ── Support Widget ───────────────────────────────────────────── */
+    #support-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 900;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(108, 99, 255, .45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    #support-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 36px rgba(108, 99, 255, .6);
+    }
+
+    #support-popup {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      z-index: 901;
+      width: 360px;
+      max-width: calc(100vw - 40px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, .55), 0 0 0 1px rgba(108,99,255,.12);
+      padding: 0;
+      transform: translateY(24px) scale(.95);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .25s;
+      overflow: hidden;
+    }
+
+    #support-popup.open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .support-header {
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .support-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+
+    .support-close-btn {
+      background: rgba(255,255,255,.2);
+      border: none;
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+      line-height: 1;
+    }
+
+    .support-close-btn:hover {
+      background: rgba(255,255,255,.35);
+    }
+
+    .support-body {
+      padding: 20px;
+    }
+
+    .support-body .help-msg {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 18px;
+    }
+
+    .support-body .help-msg strong {
+      color: var(--text);
+    }
+
+    .support-input-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .support-input-row input {
+      flex: 1;
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: .88rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .support-input-row input::placeholder {
+      color: var(--muted);
+    }
+
+    .support-input-row input:focus {
+      border-color: var(--primary);
+    }
+
+    .support-send-btn {
+      background: linear-gradient(135deg, var(--primary), var(--teal));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 20px;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap;
+    }
+
+    .support-send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 201, 167, .4);
+    }
+
+    .support-success {
+      text-align: center;
+      padding: 10px 0;
+      color: var(--teal);
+      font-weight: 600;
+      font-size: .92rem;
+    }
+
     /* ── Login Modal ──────────────────────────────────────────────── */
     #login-overlay {
       position: fixed;
@@ -1045,6 +1226,48 @@
 </head>
 
 <body>
+
+  <!-- ── Floating Decorative Background Icons ─────────────────────── -->
+  <div class="floating-icons-container" id="floating-icons" aria-hidden="true">
+    <!-- Wrench -->
+    <svg class="floating-icon" style="top:8%;left:5%;width:48px" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+    <!-- Hammer -->
+    <svg class="floating-icon" style="top:18%;right:8%;width:42px" viewBox="0 0 24 24" fill="currentColor"><path d="M2 19.63L13.43 8.2l-.71-.7 1.42-1.43 3.54 3.54-1.42 1.41-.71-.7L4.17 21.8a1.5 1.5 0 01-2.12 0l-.05-.05a1.5 1.5 0 010-2.12zM17.74 6.03L21.03 2.74a1 1 0 011.42 0l.01.01a1 1 0 010 1.42l-3.29 3.29-1.43-1.43z"/></svg>
+    <!-- Lightning bolt -->
+    <svg class="floating-icon" style="top:38%;left:12%;width:36px" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
+    <!-- Briefcase -->
+    <svg class="floating-icon" style="top:55%;right:6%;width:44px" viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-4V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM10 5h4v2h-4V5z"/></svg>
+    <!-- Paintbrush -->
+    <svg class="floating-icon" style="top:72%;left:3%;width:40px" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34a.996.996 0 00-1.41 0L9 12.25 11.75 15l8.96-8.96a.996.996 0 000-1.41z"/></svg>
+    <!-- Gear -->
+    <svg class="floating-icon" style="top:28%;right:22%;width:50px" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z"/></svg>
+    <!-- Plug -->
+    <svg class="floating-icon" style="top:82%;right:18%;width:38px" viewBox="0 0 24 24" fill="currentColor"><path d="M16 9V4h-2v5H10V4H8v5c0 1.86 1.28 3.41 3 3.86V21h2v-8.14c1.72-.45 3-2 3-3.86z"/></svg>
+    <!-- Droplet (plumbing) -->
+    <svg class="floating-icon" style="top:48%;left:25%;width:34px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2C20 10.48 17.33 6.55 12 2z"/></svg>
+  </div>
+
+  <!-- ── Support Widget ──────────────────────────────────────────── -->
+  <button id="support-fab" aria-label="Open support chat" title="Get Help">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  </button>
+
+  <div id="support-popup" role="dialog" aria-modal="false" aria-labelledby="support-heading">
+    <div class="support-header">
+      <h3 id="support-heading">💬 Quick Support</h3>
+      <button class="support-close-btn" id="support-close-btn" aria-label="Close support">✕</button>
+    </div>
+    <div class="support-body" id="support-body">
+      <p class="help-msg">
+        Need assistance? Reach our <strong>24/7 SIH Hackathon desk</strong> at
+        <strong>support@velocitygig.in</strong> or call <strong>+91-9876543210</strong>.
+      </p>
+      <div class="support-input-row">
+        <input type="text" id="support-query" placeholder="Type your query…" />
+        <button class="support-send-btn" id="support-send-btn">Send</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Toast Notification ─────────────────────────────────────────── -->
   <div id="toast" role="alert" aria-live="polite"></div>
@@ -1579,20 +1802,14 @@
       document.getElementById('form-section-sub').textContent = 'Register to start earning through our cooperative network.';
     });
 
-    /* ── Navbar CTA → open Worker tab ──────────────────────────────── */
-    document.getElementById('nav-cta-btn').addEventListener('click', () => {
-      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => document.getElementById('tab-worker').click(), 500);
-    });
-
     /* ── Hero Buttons ───────────────────────────────────────────────── */
     document.getElementById('hero-book-btn').addEventListener('click', () => {
+      document.getElementById('tab-book').click();
       document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => document.getElementById('tab-book').click(), 400);
     });
     document.getElementById('hero-worker-btn').addEventListener('click', () => {
+      document.getElementById('tab-worker').click();
       document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => document.getElementById('tab-worker').click(), 400);
     });
 
     /* ── Booking Form Submit ─────────────────────────────────────────── */
@@ -1695,6 +1912,65 @@
 
     /* ── Initial worker load on page ready ──────────────────────────── */
     fetchWorkers();
+
+    /* ── Floating Icons Parallax on Scroll ─────────────────────────── */
+    (function initFloatingIcons() {
+      const icons = document.querySelectorAll('.floating-icon');
+      const speeds = Array.from(icons, () => 0.015 + Math.random() * 0.035);
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(() => {
+            const sy = window.scrollY;
+            icons.forEach((icon, i) => {
+              icon.style.transform = `translateY(${sy * speeds[i] * (i % 2 === 0 ? -1 : 1)}px)`;
+            });
+            ticking = false;
+          });
+        }
+      }, { passive: true });
+    })();
+
+    /* ── Support Widget ───────────────────────────────────────────── */
+    (function initSupportWidget() {
+      const fab = document.getElementById('support-fab');
+      const popup = document.getElementById('support-popup');
+      const closeBtn = document.getElementById('support-close-btn');
+      const body = document.getElementById('support-body');
+
+      const defaultHTML = body.innerHTML;
+
+      fab.addEventListener('click', () => {
+        popup.classList.toggle('open');
+        if (popup.classList.contains('open')) {
+          const inp = document.getElementById('support-query');
+          if (inp) inp.focus();
+        }
+      });
+
+      closeBtn.addEventListener('click', () => popup.classList.remove('open'));
+
+      // Use event delegation so we never need to re-bind after innerHTML reset
+      body.addEventListener('click', (e) => {
+        const btn = e.target.closest('#support-send-btn');
+        if (!btn) return;
+        const inp = document.getElementById('support-query');
+        if (!inp || !inp.value.trim()) { if (inp) inp.focus(); return; }
+        body.innerHTML = '<p class="support-success">✅ Thank you! Our support team will reach out shortly.</p>';
+        setTimeout(() => {
+          popup.classList.remove('open');
+          setTimeout(() => { body.innerHTML = defaultHTML; }, 400);
+        }, 2000);
+      });
+
+      body.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && e.target.id === 'support-query') {
+          const btn = document.getElementById('support-send-btn');
+          if (btn) btn.click();
+        }
+      });
+    })();
   </script>
 </body>
 
