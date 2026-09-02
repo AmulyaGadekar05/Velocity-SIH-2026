@@ -83,6 +83,10 @@ init_db()
 def index():
     return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'index.html')
 
+@app.route('/style.css')
+def style():
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'style.css')
+
 
 @app.route('/assets/<path:filename>')
 def assets(filename):
