@@ -1,315 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sahayog – Cooperative Gig Services Platform</title>
-  <meta name="description"
-    content="Connecting households with verified local gig workers for plumbing, cleaning, electrical, cooking, carpentry, and more – cooperative model ensuring fair pay." />
+  <meta name="description" content="Connecting households with verified local gig workers – cooperative model ensuring fair pay for electricians, plumbers, cleaners, and more." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
-
 <body>
 
-  <!-- ── Floating Decorative Background Icons ─────────────────────── -->
-  <div class="floating-icons-container" id="floating-icons" aria-hidden="true">
-    <!-- Wrench -->
-    <svg class="floating-icon" style="top:8%;left:5%;width:48px" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-    <!-- Hammer -->
-    <svg class="floating-icon" style="top:18%;right:8%;width:42px" viewBox="0 0 24 24" fill="currentColor"><path d="M2 19.63L13.43 8.2l-.71-.7 1.42-1.43 3.54 3.54-1.42 1.41-.71-.7L4.17 21.8a1.5 1.5 0 01-2.12 0l-.05-.05a1.5 1.5 0 010-2.12zM17.74 6.03L21.03 2.74a1 1 0 011.42 0l.01.01a1 1 0 010 1.42l-3.29 3.29-1.43-1.43z"/></svg>
-    <!-- Lightning bolt -->
-    <svg class="floating-icon" style="top:38%;left:12%;width:36px" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg>
-    <!-- Briefcase -->
-    <svg class="floating-icon" style="top:55%;right:6%;width:44px" viewBox="0 0 24 24" fill="currentColor"><path d="M20 7h-4V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM10 5h4v2h-4V5z"/></svg>
-    <!-- Paintbrush -->
-    <svg class="floating-icon" style="top:72%;left:3%;width:40px" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34a.996.996 0 00-1.41 0L9 12.25 11.75 15l8.96-8.96a.996.996 0 000-1.41z"/></svg>
-    <!-- Gear -->
-    <svg class="floating-icon" style="top:28%;right:22%;width:50px" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z"/></svg>
-    <!-- Plug -->
-    <svg class="floating-icon" style="top:82%;right:18%;width:38px" viewBox="0 0 24 24" fill="currentColor"><path d="M16 9V4h-2v5H10V4H8v5c0 1.86 1.28 3.41 3 3.86V21h2v-8.14c1.72-.45 3-2 3-3.86z"/></svg>
-    <!-- Droplet (plumbing) -->
-    <svg class="floating-icon" style="top:48%;left:25%;width:34px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-5.33 4.55-8 8.48-8 11.8 0 4.98 3.8 8.2 8 8.2s8-3.22 8-8.2C20 10.48 17.33 6.55 12 2z"/></svg>
+  <!-- Floating decorative background icons -->
+  <div class="floating-icons-container" aria-hidden="true">
+    <span class="float-icon" style="top:8%; left:6%;  animation-delay:0s;">🔧</span>
+    <span class="float-icon" style="top:15%; left:82%; animation-delay:3s;">💡</span>
+    <span class="float-icon" style="top:38%; left:91%; animation-delay:6s;">🪣</span>
+    <span class="float-icon" style="top:60%; left:3%;  animation-delay:9s;">🪚</span>
+    <span class="float-icon" style="top:78%; left:75%; animation-delay:2s;">🎨</span>
+    <span class="float-icon" style="top:88%; left:20%; animation-delay:5s;">🧹</span>
+    <span class="float-icon" style="top:48%; left:48%; animation-delay:7s;">❄️</span>
   </div>
 
-  <!-- ── Support Widget ──────────────────────────────────────────── -->
-  <button id="support-fab" aria-label="Open support chat" title="Get Help">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-  </button>
-
-  <div id="support-popup" role="dialog" aria-modal="false" aria-labelledby="support-heading">
-    <div class="support-header">
-      <h3 id="support-heading">💬 Quick Support</h3>
-      <button class="support-close-btn" id="support-close-btn" aria-label="Close support">✕</button>
-    </div>
-    <div class="support-body" id="support-body">
-      <p class="help-msg">
-        Need assistance? Reach our <strong>24/7 Sahayog Support desk</strong> at
-        <strong>support@sahayog.org</strong> or call <strong>+91-9876543210</strong>.
-      </p>
-      <div class="support-input-row">
-        <input type="text" id="support-query" placeholder="Type your query…" />
-        <button class="support-send-btn" id="support-send-btn">Send</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── Toast Notification ─────────────────────────────────────────── -->
-  <div id="toast" role="alert" aria-live="polite"></div>
-
-  
-
-  <!-- ── AI Smart Match Modal ───────────────────────────────────── -->
-  <div id="ai-overlay" role="dialog" aria-modal="true" aria-labelledby="ai-modal-heading">
-    <div class="ai-modal-card" id="ai-modal-card">
-      <button class="login-close-btn" id="ai-close-btn" aria-label="Close AI modal">&#10005;</button>
-
-      <!-- Header -->
-      <div class="ai-modal-header">
-        <div class="ai-icon-ring">
-          <span>&#129302;</span>
-        </div>
-        <div>
-          <h2 id="ai-modal-heading">Sahayog AI Cooperative Dispatch</h2>
-          <p class="ai-modal-sub">Describe your problem — our AI matches you instantly</p>
-        </div>
-      </div>
-
-      <!-- Input Phase -->
-      <div id="ai-phase-input">
-        <div class="ai-innovations-strip">
-          <span class="ai-badge">&#127776; Natural Language</span>
-          <span class="ai-badge">&#128205; Context Matching</span>
-          <span class="ai-badge">&#127881; Cooperative Network</span>
-          <span class="ai-badge">&#9878; Load Balancing</span>
-        </div>
-        <div class="ai-input-wrap">
-          <textarea id="ai-problem-input" rows="4"
-            placeholder="e.g. Water is leaking under my kitchen sink and flooding the floor, need someone urgent in Pune..."
-            aria-label="Describe your service problem"></textarea>
-        </div>
-        <div class="ai-location-row">
-          <label for="ai-location-input">&#128205; Your Location (optional)</label>
-          <input type="text" id="ai-location-input" placeholder="e.g. Pune, Baner" />
-        </div>
-        <div id="ai-input-error" class="auth-error"></div>
-        <button class="ai-analyze-btn" id="ai-analyze-btn">
-          &#9889; Analyze &amp; Match Worker
-        </button>
-      </div>
-
-      <!-- Processing Phase -->
-      <div id="ai-phase-processing" style="display:none;">
-        <div class="ai-processing-wrap">
-          <div class="ai-spinner"></div>
-          <div class="ai-steps">
-            <div class="ai-step" id="ai-step-1">
-              <span class="ai-step-icon">&#128269;</span>
-              <span class="ai-step-text">Analyzing context...</span>
-              <span class="ai-step-badge" id="ai-urgency-badge"></span>
-            </div>
-            <div class="ai-step" id="ai-step-2" style="opacity:.3;">
-              <span class="ai-step-icon">&#9878;</span>
-              <span class="ai-step-text">Cooperative load balancing: Checking least-burdened active members nearby...</span>
-            </div>
-            <div class="ai-step" id="ai-step-3" style="opacity:.3;">
-              <span class="ai-step-icon">&#9989;</span>
-              <span class="ai-step-text">Optimal match found!</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Result Phase -->
-      <div id="ai-phase-result" style="display:none;">
-        <div class="ai-result-card" id="ai-result-card">
-          <div class="ai-result-header">
-            <div class="ai-result-avatar" id="ai-result-avatar">R</div>
-            <div class="ai-result-info">
-              <div class="ai-result-name" id="ai-result-name">Worker Name</div>
-              <div class="ai-result-service" id="ai-result-service">Service Type</div>
-              <div class="ai-result-location" id="ai-result-location">Location</div>
-            </div>
-            <div class="ai-match-score">
-              <div class="ai-score-val" id="ai-score-val">98%</div>
-              <div class="ai-score-label">Match Score</div>
-            </div>
-          </div>
-          <div class="ai-result-metrics">
-            <div class="ai-metric">
-              <span class="ai-metric-icon">&#11088;</span>
-              <span class="ai-metric-label">Rating</span>
-              <span class="ai-metric-val" id="ai-result-rating">4.9</span>
-            </div>
-            <div class="ai-metric">
-              <span class="ai-metric-icon">&#8377;</span>
-              <span class="ai-metric-label">Hourly Rate</span>
-              <span class="ai-metric-val" id="ai-result-rate">350/hr</span>
-            </div>
-            <div class="ai-metric">
-              <span class="ai-metric-icon">&#9878;</span>
-              <span class="ai-metric-label">Cooperative Shift</span>
-              <span class="ai-metric-val ai-metric-green">Optimal Available</span>
-            </div>
-            <div class="ai-metric">
-              <span class="ai-metric-icon">&#128204;</span>
-              <span class="ai-metric-label">Urgency</span>
-              <span class="ai-metric-val" id="ai-urgency-label">Normal</span>
-            </div>
-          </div>
-          <button class="ai-dispatch-btn" id="ai-dispatch-btn">
-            &#9889; Confirm Auto-Dispatch
-          </button>
-          <button class="ai-retry-btn" id="ai-retry-btn">&#8592; Try Another Problem</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ── Navbar ─────────────────────────────────────────────────────── -->
+  <!-- ── Navbar ─────────────────────────────────────────────────────────── -->
   <nav id="navbar">
     <div class="container nav-inner">
-      <a href="#" class="logo" id="logo-link">
-        <img src="assets/logo.png" alt="Sahayog Logo" />
+      <div class="logo">
+        <div class="logo-icon">🤝</div>
         <span class="logo-text">Sahayog</span>
-      </a>
+      </div>
       <ul class="nav-links">
         <li><a href="#services" id="nav-services">Services</a></li>
-        <li><a href="#workers" id="nav-workers">Find Workers</a></li>
-        <li><a href="#how" id="nav-how">How It Works</a></li>
-        <li><a href="#booking" id="nav-book">Book Now</a></li>
+        <li><a href="#workers"  id="nav-workers">Find Workers</a></li>
+        <li><a href="#how"      id="nav-how">How It Works</a></li>
+        <li><a href="#booking"  id="nav-book">Book Now</a></li>
       </ul>
-      <!-- Auth area: toggled by JS -->
-      <div id="nav-auth-area" style="display: flex; gap: 10px; align-items: center;">
-  {% if user %}
-    <div class="user-chip" style="display: flex; align-items: center; gap: 8px;">
-      <div class="user-avatar" style="width:32px; height:32px; border-radius:50%; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-weight:bold;">{{ user.name[:2]|upper }}</div>
-      <span class="user-name">{{ user.name }}</span>
-    </div>
-    <a href="/logout" class="nav-cta">Logout</a>
-  {% else %}
-    <a href="/login" class="nav-cta">Login / Sign Up</a>
-  {% endif %}
-</div>
-          <span id="user-name-display">User</span>
-        </div>
-        <button id="logout-btn" style="display:none;">Logout</button>
+      <div class="nav-auth">
+        {% if user %}
+          <div class="user-chip">
+            <div class="user-avatar">{{ user.name[:2]|upper }}</div>
+            <span>{{ user.name }}</span>
+          </div>
+          <a href="/logout" class="nav-cta logout">Logout</a>
+        {% else %}
+          <a href="/login" class="nav-cta">Login / Sign Up</a>
+        {% endif %}
       </div>
     </div>
   </nav>
 
-  <!-- ── Hero ───────────────────────────────────────────────────────── -->
-  <section class="hero">
+  <!-- ── Hero ───────────────────────────────────────────────────────────── -->
+  <section class="hero" id="home">
     <div class="container">
-      <!-- <div class="badge"><span></span> SIH 2026 — Smart India Hackathon Project</div> -->
-      <h1>
-        Cooperative Gig Services<br />
-        <span class="gradient">For Every Household</span>
-      </h1>
-      <p>
-        Connect with verified, fairly-paid local workers for plumbing, cleaning, electrical repairs, cooking &amp; more.
-        A cooperative model that empowers communities.
-      </p>
-      <div class="hero-btns">
-        <button class="btn-primary" id="hero-book-btn"> Book a Service</button>
-        <button class="btn-secondary" id="hero-worker-btn"> Become a Worker</button>
-        <button class="btn-ai-match" id="hero-ai-btn">
-          <span class="ai-btn-pulse"></span>
-          &#9889; Try AI Smart Match
-        </button>
-      </div>
-
-      <!-- Stats -->
-      <div class="stats">
-        <div class="stat-card" id="stat-workers">
-          <div class="num" id="stat-num-workers">6+</div>
-          <div class="label">Verified Workers</div>
+      <div class="hero-content">
+        <div class="hero-badge">🏆 Smart India Hackathon 2026 — Team Velocity</div>
+        <h1>India's First Cooperative Gig Workers Platform</h1>
+        <p>Connect instantly with verified local artisans — plumbers, electricians, cleaners, carpenters and more. Fair wages, zero middlemen.</p>
+        <div class="hero-buttons">
+          <button class="btn-primary" id="hero-book-btn">📅 Book a Service</button>
+          <button class="btn-outline" id="hero-worker-btn">🔧 Join as Worker</button>
         </div>
-        <div class="stat-card">
-          <div class="num">8</div>
-          <div class="label">Service Categories</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">4.8★</div>
-          <div class="label">Average Rating</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">100%</div>
-          <div class="label">Fair Pay Guarantee</div>
+        <button class="ai-badge-btn" id="open-ai-btn">⚡ Try AI Smart Match</button>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num" id="stat-num-workers">7+</div>
+            <div class="stat-label">Verified Workers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">8</div>
+            <div class="stat-label">Service Categories</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Cooperative Model</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Services ───────────────────────────────────────────────────── -->
+  <!-- ── Services ───────────────────────────────────────────────────────── -->
   <section class="section" id="services">
     <div class="container">
       <div class="section-title">
         <h2>Our Services</h2>
-        <p>Click a service to filter available workers near you</p>
+        <p>Tap a category to instantly filter available workers</p>
       </div>
-      <div class="services-grid" id="services-grid">
-        <!-- JS injected -->
-      </div>
+      <div class="services-grid" id="services-grid"></div>
     </div>
   </section>
 
-  <!-- ── Find Workers ────────────────────────────────────────────────── -->
-  <section class="section" id="workers"
-    style="background:var(--dark2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <!-- ── Find Workers ────────────────────────────────────────────────────── -->
+  <section class="section" id="workers" style="background:var(--dark2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
     <div class="container">
       <div class="section-title">
         <h2>Find a Worker</h2>
         <p>Search by service or location. All workers are cooperative members.</p>
       </div>
       <div class="search-bar">
-        <input type="text" id="search-service" class="search-input" placeholder="🔍 Service (e.g. Plumbing)" />
+        <input type="text" id="search-service"  class="search-input" placeholder="🔍 Service (e.g. Plumbing)" />
         <input type="text" id="search-location" class="search-input" placeholder="📍 Location (e.g. Pune)" />
+        <button class="mic-btn" id="search-mic" title="Search by voice">🎙️</button>
         <button class="search-btn" id="search-btn">Search</button>
       </div>
       <div class="loader" id="workers-loader"></div>
-      <div class="workers-grid" id="workers-grid"><!-- JS injected --></div>
+      <div class="workers-grid" id="workers-grid"></div>
     </div>
   </section>
 
-  <!-- ── How It Works ───────────────────────────────────────────────── -->
+  <!-- ── How It Works ───────────────────────────────────────────────────── -->
   <section class="section" id="how">
     <div class="container">
       <div class="section-title">
         <h2>How It Works</h2>
-        <p>Three simple steps to get the help you need</p>
+        <p>Three simple steps to get reliable help at home</p>
       </div>
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-num">1</div>
           <h3>Choose a Service</h3>
-          <p>Browse our 8 categories and pick the type of help you need at home.</p>
+          <p>Browse 8+ categories and pick the type of help you need.</p>
         </div>
         <div class="step-card">
           <div class="step-num">2</div>
           <h3>Book a Worker</h3>
-          <p>Fill the quick form — name, date, and address. Takes under 60 seconds.</p>
+          <p>Fill the quick form — name, date, address. Under 60 seconds.</p>
         </div>
         <div class="step-card">
           <div class="step-num">3</div>
           <h3>Get it Done</h3>
-          <p>A cooperative-verified worker arrives on time. Pay fairly, rate honestly.</p>
+          <p>A cooperative-verified worker arrives on time. Pay fairly.</p>
         </div>
         <div class="step-card">
           <div class="step-num">4</div>
           <h3>Build Community</h3>
-          <p>Earnings stay local. Workers earn more. Neighbourhoods thrive together.</p>
+          <p>Earnings stay local. Workers earn more. Neighbourhoods thrive.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── Booking / Registration Form ───────────────────────────────── -->
+  <!-- ── Booking Form ────────────────────────────────────────────────────── -->
   <section class="section" id="booking">
     <div class="container">
       <div class="section-title">
@@ -317,297 +149,235 @@
         <p id="form-section-sub">Fill in the details and we'll match you with the best worker.</p>
       </div>
 
-      <!-- Tabs -->
       <div class="tabs">
-        <button class="tab-btn active" id="tab-book"> Book Service</button>
-        <button class="tab-btn" id="tab-worker"> Register as Worker</button>
+        <button class="tab-btn active" id="tab-book">📅 Book Service</button>
+        <button class="tab-btn" id="tab-worker">🔧 Register as Worker</button>
       </div>
 
-      <!-- ── Booking Form ───────────────────────────────────────────── -->
-      <div class="form-card" id="book-form-wrapper">
-        <form id="booking-form" novalidate>
-          <input type="hidden" id="book-worker" name="worker_name" value="" />
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="book-name">Full Name</label>
-              <input type="text" id="book-name" name="name" placeholder="e.g. Priya Sharma" required
-                autocomplete="name" />
+      <!-- Booking Form -->
+      <div id="book-form-wrapper">
+        <div class="form-card">
+          <form id="booking-form" novalidate>
+            <input type="hidden" id="book-worker" value="" />
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="book-name">Full Name</label>
+                <input type="text" id="book-name" placeholder="e.g. Priya Sharma" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="book-phone">Phone Number</label>
+                <input type="tel" id="book-phone" placeholder="e.g. 9876543210" required autocomplete="tel" maxlength="10" />
+              </div>
+              <div class="form-group">
+                <label for="book-service">Service Needed</label>
+                <select id="book-service" required>
+                  <option value="" disabled selected>Select a service…</option>
+                  <option>Plumbing</option>
+                  <option>Electrician</option>
+                  <option>House Cleaning</option>
+                  <option>Carpentry</option>
+                  <option>Painting</option>
+                  <option>AC Repair</option>
+                  <option>Cooking</option>
+                  <option>Babysitting</option>
+                  <option>Gardening</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="book-date">Preferred Date</label>
+                <input type="date" id="book-date" required />
+              </div>
+              <div class="form-group full">
+                <label for="book-address">Your Address</label>
+                <input type="text" id="book-address" placeholder="e.g. 12, MG Road, Pune 411001" required autocomplete="street-address" />
+              </div>
+              <div class="form-group full">
+                <label for="book-note">Additional Notes <span style="color:var(--muted); font-weight:400;">(optional)</span></label>
+                <textarea id="book-note" placeholder="Describe the problem or any special instructions…"></textarea>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="book-phone">Phone Number</label>
-              <input type="tel" id="book-phone" name="phone" placeholder="e.g. 9876543210" required
-                autocomplete="tel" />
+            <div id="selected-worker-display" style="display:none; margin-top:12px; padding:10px 14px; background:rgba(0,201,167,.1); border:1px solid rgba(0,201,167,.3); border-radius:8px; font-size:.88rem; color:var(--teal);">
+              ✅ Worker Pre-selected: <strong id="selected-worker-name"></strong>
             </div>
-            <div class="form-group">
-              <label for="book-service">Service Needed</label>
-              <select id="book-service" name="service" required>
-                <option value="" disabled selected>Select a service…</option>
-                <option>Plumbing</option>
-                <option>Cleaning</option>
-                <option>Electrician</option>
-                <option>Cooking</option>
-                <option>Carpentry</option>
-                <option>Babysitting</option>
-                <option>Gardening</option>
-                <option>Moving Help</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="book-date">Preferred Date</label>
-              <input type="date" id="book-date" name="date" required />
-            </div>
-            <div class="form-group full">
-              <label for="book-address">Your Address</label>
-              <input type="text" id="book-address" name="address" placeholder="e.g. 12, MG Road, Pune 411001" required
-                autocomplete="street-address" />
-            </div>
-            <div class="form-group full">
-              <label for="book-note">Additional Note <span
-                  style="color:var(--muted);font-weight:400;">(optional)</span></label>
-              <textarea id="book-note" name="note"
-                placeholder="Describe the problem or any special instructions…"></textarea>
-            </div>
-          </div>
-          <button type="submit" class="submit-btn" id="book-submit-btn"> Confirm Booking</button>
-        </form>
+            <button type="submit" class="submit-btn" id="book-submit-btn">🚀 Confirm Booking</button>
+          </form>
+        </div>
       </div>
 
-      
-          <button type="submit" class="submit-btn" id="worker-submit-btn"> Join the Cooperative</button>
-        </form>
+      <!-- Register as Worker Form -->
+      <div id="worker-form-wrapper" style="display:none;">
+        <div class="form-card">
+          {% if user %}
+            <p style="text-align:center; color:var(--muted); font-size:.95rem;">
+              You're already logged in as a <strong style="color:var(--text);">{{ user.role }}</strong>.
+              {% if user.role == 'worker' %}
+                <a href="/worker-profile" style="color:var(--teal);">Go to your dashboard →</a>
+              {% else %}
+                <a href="/logout" style="color:var(--accent);">Log out</a> and sign up as a worker.
+              {% endif %}
+            </p>
+          {% else %}
+            <p style="text-align:center; color:var(--muted); font-size:.95rem;">
+              <a href="/login" style="color:var(--primary);">Sign up at /login</a> and select "I'm a Worker" to join the cooperative.
+            </p>
+          {% endif %}
+        </div>
       </div>
+
     </div>
   </section>
 
-  <!-- ── Footer ─────────────────────────────────────────────────────── -->
+  <!-- ── Footer ─────────────────────────────────────────────────────────── -->
   <footer>
     <div class="container">
-      <p>
-        Built by Team <strong>Velocity</strong> &nbsp;|&nbsp;
-        <strong>Smart India Hackathon 2026</strong> &nbsp;|&nbsp;
-        Empowering Cooperative Gig Economy
-      </p>
+      <p>Built by Team <strong>Velocity</strong> &nbsp;|&nbsp; <strong>Smart India Hackathon 2026</strong> &nbsp;|&nbsp; Empowering Cooperative Gig Economy</p>
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════════════════════════════
+  <!-- ── AI Smart Match Modal ───────────────────────────────────────────── -->
+  <div class="modal-overlay" id="ai-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="close-ai">✕</button>
+      <div class="modal-title">⚡ AI Smart Match</div>
+      <p class="modal-sub">Describe your problem in plain language (Hindi or English).</p>
+
+      <!-- Phase 1: Input -->
+      <div id="ai-phase-input">
+        <div class="ai-input-wrap">
+          <textarea class="ai-textarea" id="ai-problem-input" placeholder="e.g. 'Pipe ke neeche se paani aa raha hai' or 'sparking fuse box'…" rows="3"></textarea>
+          <button class="mic-btn" id="ai-mic" title="Describe problem by voice">🎙️</button>
+        </div>
+        <p class="input-error" id="ai-input-error">Please describe your problem first.</p>
+        <button class="btn-primary" id="ai-analyze-btn" style="width:100%; margin-top:14px;">🔍 Analyze & Match</button>
+      </div>
+
+      <!-- Phase 2: Processing -->
+      <div id="ai-phase-proc" style="display:none;">
+        <div class="ai-steps">
+          <div class="ai-step" id="step-1"><div class="step-icon">🔍</div> Analyzing your problem…</div>
+          <div class="ai-step" id="step-2"><div class="step-icon">🗂️</div> Identifying trade category…</div>
+          <div class="ai-step" id="step-3"><div class="step-icon">⭐</div> Matching highest-rated available worker…</div>
+        </div>
+      </div>
+
+      <!-- Phase 3: Result -->
+      <div id="ai-phase-result" style="display:none;">
+        <div class="match-result-card">
+          <div class="match-header">
+            <div class="match-avatar" id="match-avatar"></div>
+            <div>
+              <div style="font-weight:800; font-size:1rem;" id="match-name"></div>
+              <div style="font-size:.82rem; color:var(--muted);" id="match-service-tag"></div>
+            </div>
+            <div class="match-score" id="match-score" style="margin-left:auto;"></div>
+          </div>
+          <div class="match-meta" id="match-meta"></div>
+          <div style="font-size:.82rem; color:var(--muted);">Detected Issue: <strong id="match-issue" style="color:var(--text);"></strong></div>
+        </div>
+        <div class="match-actions">
+          <button class="dispatch-btn" id="dispatch-btn">✅ Confirm Auto-Dispatch</button>
+          <button class="retry-btn" id="retry-btn">↩ Try Again</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        CLIENT-SIDE JAVASCRIPT
-  ═══════════════════════════════════════════════════════════════════ -->
+       ══════════════════════════════════════════════════════════════════ -->
   <script>
     'use strict';
 
-    /* ── Scroll fix: always start at top ───────────────────────────── */
+    /* ── Scroll fix ──────────────────────────────────────────────────────── */
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
 
-    /* ──────────────────────────────────────────────────────────────────
-       AUTH — localStorage session simulation (Sahayog)
-    ────────────────────────────────────────────────────────────────── */
-    const AUTH = { isLoggedIn: () => {% if user %}true{% else %}false{% endif %}, userName: () => '{% if user %}{{ user.name }}{% endif %}' };
+    const API = '/api';
 
-    /* ── DOM refs ───────────────────────────────────────────────────── */
-    const loginOverlay    = document.getElementById('login-overlay');
-    const loginForm       = document.getElementById('login-form');
-    const signupForm      = document.getElementById('signup-form');
-    const loginErrorEl    = document.getElementById('login-error');
-    const signupErrorEl   = document.getElementById('signup-error');
-    const loginBtn        = document.getElementById('login-btn');
-    const logoutBtn       = document.getElementById('logout-btn');
-    const userChip        = document.getElementById('user-chip');
-    const userNameDisplay = document.getElementById('user-name-display');
-    const userAvatar      = document.getElementById('user-avatar');
-    const loginCloseBtn   = document.getElementById('login-close-btn');
-    const authTabLogin    = document.getElementById('auth-tab-login');
-    const authTabSignup   = document.getElementById('auth-tab-signup');
-    const panelLogin      = document.getElementById('auth-panel-login');
-    const panelSignup     = document.getElementById('auth-panel-signup');
-
-    /* Auth UI managed by Jinja */
-    loginCloseBtn.addEventListener('click', closeLoginModal);
-
-    // Close on backdrop click
-    loginOverlay.addEventListener('click', (e) => {
-      if (e.target === loginOverlay) closeLoginModal();
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && loginOverlay.classList.contains('open')) closeLoginModal();
-    });
-
-    /* ── Login form submit ──────────────────────────────────────────── */
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email    = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-
-      if (!email) {
-        loginErrorEl.textContent = 'Please enter your email or phone.';
-        loginErrorEl.classList.add('visible');
-        document.getElementById('login-email').focus();
-        return;
-      }
-      if (!password) {
-        loginErrorEl.textContent = 'Please enter your password.';
-        loginErrorEl.classList.add('visible');
-        document.getElementById('login-password').focus();
-        return;
-      }
-
-      // Restore name from stored account if available, else use email prefix
-      const storedName = localStorage.getItem('registeredName') || email.split('@')[0];
-      const storedRole = localStorage.getItem('userRole') || 'Client';
-      AUTH.login(storedName, storedRole);
-      closeLoginModal();
-      refreshAuthUI();
-      showToast(`🙏 Welcome to Sahayog, ${storedName}!`, 'success');
-    });
-
-    /* ── Sign Up form submit ────────────────────────────────────────── */
-    signupForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name     = document.getElementById('signup-name').value.trim();
-      const phone    = document.getElementById('signup-phone').value.trim();
-      const role     = document.getElementById('signup-role').value;
-      const password = document.getElementById('signup-password').value;
-
-      if (!name) {
-        signupErrorEl.textContent = 'Please enter your full name.';
-        signupErrorEl.classList.add('visible');
-        document.getElementById('signup-name').focus();
-        return;
-      }
-      if (!phone || !/^\d{10}$/.test(phone)) {
-        signupErrorEl.textContent = 'Enter a valid 10-digit phone number.';
-        signupErrorEl.classList.add('visible');
-        document.getElementById('signup-phone').focus();
-        return;
-      }
-      if (!role) {
-        signupErrorEl.textContent = 'Please select your role.';
-        signupErrorEl.classList.add('visible');
-        document.getElementById('signup-role').focus();
-        return;
-      }
-      if (!password || password.length < 4) {
-        signupErrorEl.textContent = 'Password must be at least 4 characters.';
-        signupErrorEl.classList.add('visible');
-        document.getElementById('signup-password').focus();
-        return;
-      }
-
-      // Persist registration details for login recall
-      localStorage.setItem('registeredName', name);
-      AUTH.login(name, role);
-      closeLoginModal();
-      refreshAuthUI();
-      showToast(`🎉 Welcome to Sahayog, ${name}!`, 'success');
-    });
-
-    /* ── Logout ─────────────────────────────────────────────────────── */
-    logoutBtn.addEventListener('click', () => {
-      AUTH.logout();
-      refreshAuthUI();
-      showToast('👋 Logged out successfully.', 'success');
-    });
-
-    /* ── Restore session on page load ───────────────────────────────── */
-    refreshAuthUI();
-
-    const API = `http://${window.location.hostname}:5000/api`;
-    const API_BASE = API;   // alias used by AI modal
-
-    /* ── Utility: Toast ─────────────────────────────────────────────── */
+    /* ── Toast ───────────────────────────────────────────────────────────── */
     function showToast(msg, type = 'success') {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.className = `show ${type}`;
-      clearTimeout(t._timer);
-      t._timer = setTimeout(() => { t.className = ''; }, 4000);
+      const tc = document.getElementById('toast-container');
+      const t  = document.createElement('div');
+      t.className = `toast ${type}`;
+      t.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span> ${msg}`;
+      tc.appendChild(t);
+      setTimeout(() => t.remove(), 4500);
     }
 
-    /* ── Utility: Set min-date to today ─────────────────────────────── */
-    (function setMinDate() {
-      const d = document.getElementById('book-date');
-      d.min = new Date().toISOString().split('T')[0];
-    })();
-
-    /* ── Services Data ──────────────────────────────────────────────── */
+    /* ── Services Grid ───────────────────────────────────────────────────── */
     const SERVICES = [
-      { icon: '🔧', name: 'Plumbing', desc: 'Leaks, pipes, taps' },
-      { icon: '🧹', name: 'Cleaning', desc: 'Home & deep cleaning' },
-      { icon: '⚡', name: 'Electrician', desc: 'Wiring, fittings' },
-      { icon: '🍳', name: 'Cooking', desc: 'Daily & event meals' },
-      { icon: '🪚', name: 'Carpentry', desc: 'Furniture & repairs' },
-      { icon: '🍼', name: 'Babysitting', desc: 'Trusted childcare' },
-      { icon: '🌿', name: 'Gardening', desc: 'Plants & landscaping' },
-      { icon: '📦', name: 'Moving Help', desc: 'Packing & shifting' },
+      { icon: '🚿', label: 'Plumbing' },
+      { icon: '💡', label: 'Electrician' },
+      { icon: '🧹', label: 'House Cleaning' },
+      { icon: '🪚', label: 'Carpentry' },
+      { icon: '🎨', label: 'Painting' },
+      { icon: '❄️', label: 'AC Repair' },
+      { icon: '🍳', label: 'Cooking' },
+      { icon: '🌱', label: 'Gardening' },
     ];
 
-    /* ── Render Service Cards ───────────────────────────────────────── */
-    const servicesGrid = document.getElementById('services-grid');
-    SERVICES.forEach(s => {
-      const card = document.createElement('div');
-      card.className = 'service-card';
-      card.id = `svc-${s.name.replace(/\s+/g, '-').toLowerCase()}`;
-      card.setAttribute('role', 'button');
-      card.setAttribute('tabindex', '0');
-      card.innerHTML = `<span class="service-icon">${s.icon}</span><h3>${s.name}</h3><p>${s.desc}</p>`;
-
-      // Click: filter workers by this service
-      card.addEventListener('click', () => {
-        document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        document.getElementById('search-service').value = s.name;
-        document.getElementById('book-service').value = s.name;
-        fetchWorkers(s.name, '');
-        document.getElementById('workers').scrollIntoView({ behavior: 'smooth' });
+    (function buildServices() {
+      const grid = document.getElementById('services-grid');
+      SERVICES.forEach(({ icon, label }) => {
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.innerHTML = `<div class="icon">${icon}</div><h3>${label}</h3>`;
+        card.addEventListener('click', () => {
+          document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+          document.getElementById('search-service').value = label;
+          fetchWorkers(label, '');
+          document.getElementById('workers').scrollIntoView({ behavior: 'smooth' });
+        });
+        grid.appendChild(card);
       });
+    })();
 
-      // Keyboard accessibility
-      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') card.click(); });
-      servicesGrid.appendChild(card);
-    });
-
-    /* ── Fetch & Render Workers ─────────────────────────────────────── */
+    /* ── Fetch & Render Workers ───────────────────────────────────────────── */
     async function fetchWorkers(service = '', location = '') {
-      const grid = document.getElementById('workers-grid');
+      const grid   = document.getElementById('workers-grid');
       const loader = document.getElementById('workers-loader');
       grid.innerHTML = '';
       loader.classList.add('visible');
-
       try {
         const params = new URLSearchParams();
-        if (service) params.append('service', service);
-        if (location) params.append('location', location);
-
-        const res = await fetch(`${API}/workers?${params}`);
+        if (service)  params.set('service', service);
+        if (location) params.set('location', location);
+        const res  = await fetch(`${API}/workers?${params}`);
         const data = await res.json();
         loader.classList.remove('visible');
-
-        if (!data.workers || data.workers.length === 0) {
-          grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="emoji">😔</div><p>No workers found. Try a different search.</p></div>`;
+        if (!data.workers || !data.workers.length) {
+          grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="emoji">🔍</div><p>No workers found for this search. Try a different service or area.</p></div>`;
           return;
         }
         data.workers.forEach(renderWorkerCard);
-        document.getElementById('stat-num-workers').textContent = data.workers.length + '+';
-      } catch (err) {
+        document.getElementById('stat-num-workers').textContent = data.count + '+';
+      } catch {
         loader.classList.remove('visible');
-        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="emoji">⚠️</div><p>Could not connect to the server. Make sure <code>app.py</code> is running.</p></div>`;
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="emoji">⚠️</div><p>Could not connect. Make sure <code>app.py</code> is running.</p></div>`;
       }
     }
 
     function renderWorkerCard(w) {
-      const grid = document.getElementById('workers-grid');
+      const grid     = document.getElementById('workers-grid');
       const initials = w.name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+      const isAvail  = w.availability_status === 'available';
+
       const card = document.createElement('div');
       card.className = 'worker-card';
-      card.id = `worker-${w.id}`;
+      card.id = `worker-card-${w.id}`;
 
-      // Fix 1: Always treat DB workers as Available (no 'available' field in SQLite schema)
-      // Fix 2: jobs fallback — use experience_years * 15, or a seeded count if missing
-      const isAvail = w.available !== false; // treat undefined/null as true
-      const jobCount = w.jobs_completed ?? w.jobs ?? (w.experience_years ? w.experience_years * 15 : 12 + (w.id * 5));
+      const statusHtml = isAvail
+        ? `<span><i class="avail-dot online"></i> 🟢 Available</span>`
+        : `<span><i class="avail-dot offline"></i> ⏳ On Active Job</span>`;
+
+      const btnHtml = isAvail
+        ? `<button class="book-btn" style="background:linear-gradient(135deg,#00c9a7,#6c63ff);color:#fff;">📅 Book Now</button>`
+        : `<button class="book-btn" disabled style="background:var(--dark3);color:var(--muted);">⏳ Currently Busy</button>`;
 
       card.innerHTML = `
         <div class="worker-header">
@@ -618,60 +388,68 @@
           </div>
         </div>
         <div class="worker-meta">
-          <span>⭐ ${w.rating ?? '4.8'}</span>
-          <span>🛠️ ${w.experience_years || 4} yrs exp</span>
+          <span>⭐ ${w.rating}</span>
+          <span>🛠️ ${w.experience_years} yrs exp</span>
           <span>📍 ${w.location}</span>
-          <span><i class="avail-dot online"></i> 🟢 Available</span>
+          ${statusHtml}
         </div>
-        <button class="book-btn" id="book-worker-${w.id}" style="background:linear-gradient(135deg,#00c9a7,#6c63ff);color:#fff;border:none;">
-          📅 Book Now
-        </button>`;
+        <div style="font-size:.82rem; color:var(--muted); margin-bottom:4px;">₹${w.hourly_rate}/hr</div>
+        ${btnHtml}`;
 
-      const btn = card.querySelector(`#book-worker-${w.id}`);
-      btn.addEventListener('click', () => {
-        document.getElementById('book-service').value = w.service;
-        document.getElementById('tab-book').click();
-        document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
-        showToast(`Great choice! ${w.name} selected. Fill in the form below.`, 'success');
-      });
+      if (isAvail) {
+        const btn = card.querySelector('.book-btn');
+        btn.addEventListener('click', () => selectWorker(w));
+      }
 
       grid.appendChild(card);
     }
 
-    /* ── Search Button ──────────────────────────────────────────────── */
+    /* ── Select Worker → Prefill Booking ─────────────────────────────────── */
+    function selectWorker(w) {
+      document.getElementById('book-worker').value = w.name;
+      document.getElementById('book-service').value = w.service;
+      const disp = document.getElementById('selected-worker-display');
+      document.getElementById('selected-worker-name').textContent = `${w.name} (${w.service})`;
+      disp.style.display = 'block';
+      document.getElementById('tab-book').click();
+      document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+      showToast(`${w.name} pre-selected! Fill the rest of the form.`, 'success');
+    }
+
+    /* ── Search ──────────────────────────────────────────────────────────── */
     document.getElementById('search-btn').addEventListener('click', () => {
-      const service = document.getElementById('search-service').value.trim();
-      const location = document.getElementById('search-location').value.trim();
-      fetchWorkers(service, location);
+      fetchWorkers(
+        document.getElementById('search-service').value.trim(),
+        document.getElementById('search-location').value.trim()
+      );
     });
 
-    // Enter key in search inputs
     ['search-service', 'search-location'].forEach(id => {
       document.getElementById(id).addEventListener('keydown', e => {
         if (e.key === 'Enter') document.getElementById('search-btn').click();
       });
     });
 
-    /* ── Tab Switcher ───────────────────────────────────────────────── */
+    /* ── Tab Switcher ────────────────────────────────────────────────────── */
     document.getElementById('tab-book').addEventListener('click', () => {
       document.getElementById('tab-book').classList.add('active');
       document.getElementById('tab-worker').classList.remove('active');
-      document.getElementById('book-form-wrapper').style.display = 'block';
+      document.getElementById('book-form-wrapper').style.display = '';
       document.getElementById('worker-form-wrapper').style.display = 'none';
       document.getElementById('form-section-title').textContent = 'Book a Service';
-      document.getElementById('form-section-sub').textContent = 'Fill in the details and we\'ll match you with the best worker.';
+      document.getElementById('form-section-sub').textContent = "Fill in the details and we'll match you with the best worker.";
     });
 
     document.getElementById('tab-worker').addEventListener('click', () => {
       document.getElementById('tab-worker').classList.add('active');
       document.getElementById('tab-book').classList.remove('active');
-      document.getElementById('worker-form-wrapper').style.display = 'block';
+      document.getElementById('worker-form-wrapper').style.display = '';
       document.getElementById('book-form-wrapper').style.display = 'none';
       document.getElementById('form-section-title').textContent = 'Join as a Worker';
       document.getElementById('form-section-sub').textContent = 'Register to start earning through our cooperative network.';
     });
 
-    /* ── Hero Buttons ───────────────────────────────────────────────── */
+    /* ── Hero Buttons ────────────────────────────────────────────────────── */
     document.getElementById('hero-book-btn').addEventListener('click', () => {
       document.getElementById('tab-book').click();
       document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
@@ -681,45 +459,30 @@
       document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
     });
 
-    /* ── Booking Form Submit ─────────────────────────────────────────── */
+    /* ── Booking Form Submit ──────────────────────────────────────────────── */
     document.getElementById('booking-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      if (!AUTH.isLoggedIn()) {
-        showToast('⚠️ Please log in to complete your booking.', 'error');
-        openLoginModal('login');
-        return;
-      }
-
-      const btn = document.getElementById('book-submit-btn');
-      const form = e.target;
+      const btn  = document.getElementById('book-submit-btn');
       const data = {
-        name: document.getElementById('book-name').value.trim(),
-        phone: document.getElementById('book-phone').value.trim(),
-        service: document.getElementById('book-service').value,
-        date: document.getElementById('book-date').value,
-        address: document.getElementById('book-address').value.trim(),
-        note: document.getElementById('book-note').value.trim(),
-        worker_name: document.getElementById('book-worker') ? document.getElementById('book-worker').value : '',
+        name:        document.getElementById('book-name').value.trim(),
+        phone:       document.getElementById('book-phone').value.trim(),
+        service:     document.getElementById('book-service').value,
+        date:        document.getElementById('book-date').value,
+        address:     document.getElementById('book-address').value.trim(),
+        note:        document.getElementById('book-note').value.trim(),
+        worker_name: document.getElementById('book-worker').value.trim(),
       };
 
-      // Client-side validation
-      for (const [k, v] of Object.entries(data)) {
-        if (!v && k !== 'note') {
-          showToast(`Please fill in: ${k}`, 'error');
-          return;
-        }
+      if (!data.name || !data.phone || !data.service || !data.date || !data.address) {
+        showToast('Please fill in all required fields.', 'error'); return;
       }
       if (!/^\d{10}$/.test(data.phone)) {
-        showToast('Enter a valid 10-digit phone number', 'error');
-        return;
+        showToast('Enter a valid 10-digit phone number.', 'error'); return;
       }
 
-      btn.disabled = true;
-      btn.textContent = '⏳ Submitting…';
-
+      btn.disabled = true; btn.textContent = '⏳ Submitting…';
       try {
-        const res = await fetch(`${API}/book`, {
+        const res  = await fetch(`${API}/book`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
@@ -727,350 +490,211 @@
         const json = await res.json();
         if (json.success) {
           showToast(`✅ ${json.message}`, 'success');
-          form.reset();
+          e.target.reset();
+          document.getElementById('book-worker').value = '';
+          document.getElementById('selected-worker-display').style.display = 'none';
+          // Refresh worker list to show updated availability
+          setTimeout(() => fetchWorkers(), 1000);
         } else {
           showToast(`❌ ${json.message}`, 'error');
         }
       } catch {
         showToast('❌ Server unreachable. Is app.py running?', 'error');
       } finally {
-        btn.disabled = false;
-        btn.textContent = '🚀 Confirm Booking';
+        btn.disabled = false; btn.textContent = '🚀 Confirm Booking';
       }
     });
 
-    /* ── Worker Registration Form Submit ────────────────────────────── */
-    document.getElementById('worker-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
+    /* ════════════════════════════════════════════════════════════════════════
+       AI SMART MATCH MODAL
+       ════════════════════════════════════════════════════════════════════ */
+    const aiModal    = document.getElementById('ai-modal');
+    const phaseInput = document.getElementById('ai-phase-input');
+    const phaseProc  = document.getElementById('ai-phase-proc');
+    const phaseResult= document.getElementById('ai-phase-result');
+    const dispatchBtn= document.getElementById('dispatch-btn');
+    const retryBtn   = document.getElementById('retry-btn');
 
-      if (!AUTH.isLoggedIn()) {
-        showToast('⚠️ Please sign up or log in before registering as a Sahayogi Worker.', 'error');
-        openLoginModal('signup');
+    let matchedWorker  = null;
+    let detectedService = '';
+    let userProblemText = '';
+
+    function openAI()  { aiModal.classList.add('open'); resetAI(); }
+    function closeAI() { aiModal.classList.remove('open'); }
+    function resetAI() {
+      phaseInput.style.display  = '';
+      phaseProc.style.display   = 'none';
+      phaseResult.style.display = 'none';
+      document.getElementById('ai-problem-input').value = '';
+      document.getElementById('ai-input-error').classList.remove('visible');
+      [1, 2, 3].forEach(n => {
+        const el = document.getElementById(`step-${n}`);
+        el.classList.remove('active', 'done');
+      });
+    }
+
+    document.getElementById('open-ai-btn').addEventListener('click', openAI);
+    document.getElementById('close-ai').addEventListener('click', closeAI);
+    aiModal.addEventListener('click', e => { if (e.target === aiModal) closeAI(); });
+    retryBtn.addEventListener('click', resetAI);
+
+    // Keyword → Service mapping
+    const SERVICE_KEYWORDS = {
+      'Electrician':    ['electric', 'bijli', 'wire', 'switch', 'spark', 'current', 'light', 'fan', 'fuse', 'short circuit'],
+      'Plumbing':       ['plumb', 'pipe', 'pani', 'leak', 'tap', 'sink', 'drain', 'toilet', 'nalkaa', 'water', 'clog'],
+      'House Cleaning': ['clean', 'saaf', 'sweep', 'mop', 'jhadu', 'dust', 'dirty'],
+      'Carpentry':      ['carpenter', 'wood', 'lakdi', 'furniture', 'door', 'shelf', 'drawer'],
+      'Painting':       ['paint', 'rang', 'wall', 'colour', 'color', 'coat'],
+      'AC Repair':      ['ac', 'air condition', 'cooler', 'cooling', 'ac nahi chal'],
+      'Cooking':        ['cook', 'khana', 'food', 'chef', 'khana banana'],
+    };
+
+    function detectService(text) {
+      const t = text.toLowerCase();
+      for (const [service, kws] of Object.entries(SERVICE_KEYWORDS)) {
+        if (kws.some(kw => t.includes(kw))) return service;
+      }
+      return 'Plumbing'; // safe fallback
+    }
+
+    async function fetchBestWorker(service) {
+      try {
+        const res  = await fetch(`${API}/workers?service=${encodeURIComponent(service)}`);
+        const data = await res.json();
+        if (data.workers && data.workers.length) {
+          return data.workers.find(w => w.availability_status === 'available') || data.workers[0];
+        }
+      } catch {}
+      return null;
+    }
+
+    async function animateSteps(callback) {
+      const delays = [0, 700, 1400];
+      for (let i = 1; i <= 3; i++) {
+        await new Promise(r => setTimeout(r, delays[i - 1]));
+        document.getElementById(`step-${i}`).classList.add('active');
+        if (i > 1) document.getElementById(`step-${i - 1}`).classList.replace('active', 'done');
+      }
+      await new Promise(r => setTimeout(r, 600));
+      document.getElementById('step-3').classList.replace('active', 'done');
+      callback();
+    }
+
+    document.getElementById('ai-analyze-btn').addEventListener('click', async () => {
+      const text = document.getElementById('ai-problem-input').value.trim();
+      if (!text) {
+        document.getElementById('ai-input-error').classList.add('visible');
         return;
       }
+      document.getElementById('ai-input-error').classList.remove('visible');
+      userProblemText  = text;
+      detectedService  = detectService(text);
 
-      const btn = document.getElementById('worker-submit-btn');
-      const form = e.target;
-      const data = {
-        name: document.getElementById('w-name').value.trim(),
-        phone: document.getElementById('w-phone').value.trim(),
-        service: document.getElementById('w-service').value,
-        location: document.getElementById('w-location').value.trim(),
+      phaseInput.style.display  = 'none';
+      phaseProc.style.display   = '';
+      phaseResult.style.display = 'none';
+
+      const [worker] = await Promise.all([
+        fetchBestWorker(detectedService),
+        new Promise(r => setTimeout(r, 1200))
+      ]);
+
+      animateSteps(() => {
+        matchedWorker = worker || {
+          name: 'Ravi Kumar', service: detectedService,
+          location: 'Mumbai', rating: 4.8, hourly_rate: 350,
+          availability_status: 'available'
+        };
+        showMatchResult(matchedWorker);
+      });
+    });
+
+    function showMatchResult(w) {
+      phaseProc.style.display   = 'none';
+      phaseResult.style.display = '';
+      const initials = w.name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase();
+      document.getElementById('match-avatar').textContent  = initials;
+      document.getElementById('match-name').textContent    = w.name;
+      document.getElementById('match-service-tag').textContent = `⚙️ ${w.service}`;
+      document.getElementById('match-meta').innerHTML =
+        `<span>⭐ ${w.rating}</span><span>📍 ${w.location}</span><span>₹${w.hourly_rate}/hr</span>`;
+      document.getElementById('match-score').textContent   = `${Math.floor(Math.random() * 4) + 95}% match`;
+      document.getElementById('match-issue').textContent   = userProblemText.slice(0, 60) + (userProblemText.length > 60 ? '…' : '');
+    }
+
+    dispatchBtn.addEventListener('click', () => {
+      if (!matchedWorker) return;
+      closeAI();
+      document.getElementById('book-worker').value   = matchedWorker.name;
+      document.getElementById('book-service').value  = matchedWorker.service;
+      document.getElementById('book-note').value     = userProblemText;
+      document.getElementById('selected-worker-name').textContent = `${matchedWorker.name} (${matchedWorker.service})`;
+      document.getElementById('selected-worker-display').style.display = 'block';
+      document.getElementById('tab-book').click();
+      setTimeout(() => {
+        document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      showToast(`Worker ${matchedWorker.name} auto-selected! Confirm your booking below.`, 'success');
+    });
+
+    /* ── Voice Search on Main Search Bar ────────────────────────────────── */
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.lang  = 'hi-IN';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      let recording = false;
+
+      // Search bar mic
+      const searchMic = document.getElementById('search-mic');
+      searchMic.addEventListener('click', () => {
+        if (recording) { recognition.stop(); return; }
+        recognition.start(); recording = true;
+        searchMic.classList.add('recording');
+      });
+
+      // AI modal mic
+      const aiMic = document.getElementById('ai-mic');
+      if (aiMic) {
+        aiMic.addEventListener('click', () => {
+          if (recording) { recognition.stop(); return; }
+          recognition.start(); recording = true;
+          aiMic.classList.add('recording');
+        });
+      }
+
+      recognition.onresult = (e) => {
+        const t = e.results[0][0].transcript;
+        const active = document.getElementById('ai-modal').classList.contains('open');
+        if (active) {
+          document.getElementById('ai-problem-input').value = t;
+        } else {
+          document.getElementById('search-service').value = t;
+        }
+        recording = false;
+        searchMic.classList.remove('recording');
+        if (aiMic) aiMic.classList.remove('recording');
       };
 
-      for (const [k, v] of Object.entries(data)) {
-        if (!v) {
-          showToast(`Please fill in: ${k}`, 'error');
-          return;
-        }
-      }
-      if (!/^\d{10}$/.test(data.phone)) {
-        showToast('Enter a valid 10-digit phone number', 'error');
-        return;
-      }
+      recognition.onerror = () => {
+        recording = false;
+        searchMic.classList.remove('recording');
+        if (aiMic) aiMic.classList.remove('recording');
+      };
 
-      btn.disabled = true;
-      btn.textContent = '⏳ Registering…';
+      recognition.onend = () => {
+        recording = false;
+        searchMic.classList.remove('recording');
+        if (aiMic) aiMic.classList.remove('recording');
+      };
+    } else {
+      const searchMic = document.getElementById('search-mic');
+      if (searchMic) searchMic.style.display = 'none';
+    }
 
-      try {
-        const res = await fetch(`${API}/register-worker`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        });
-        const json = await res.json();
-        if (json.success) {
-          showToast(`🎉 ${json.message}`, 'success');
-          form.reset();
-          fetchWorkers();            // refresh worker list
-        } else {
-          showToast(`❌ ${json.message}`, 'error');
-        }
-      } catch {
-        showToast('❌ Server unreachable. Is app.py running?', 'error');
-      } finally {
-        btn.disabled = false;
-        btn.textContent = ' Join the Cooperative';
-      }
-    });
-
-    /* ── Initial worker load on page ready ──────────────────────────── */
+    /* ── Initial Worker Load ──────────────────────────────────────────────── */
     fetchWorkers();
-
-    /* ── Floating Icons Parallax on Scroll ─────────────────────────── */
-    (function initFloatingIcons() {
-      const icons = document.querySelectorAll('.floating-icon');
-      const speeds = Array.from(icons, () => 0.015 + Math.random() * 0.035);
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          ticking = true;
-          requestAnimationFrame(() => {
-            const sy = window.scrollY;
-            icons.forEach((icon, i) => {
-              icon.style.transform = `translateY(${sy * speeds[i] * (i % 2 === 0 ? -1 : 1)}px)`;
-            });
-            ticking = false;
-          });
-        }
-      }, { passive: true });
-    })();
-
-    /* ── Support Widget ───────────────────────────────────────────── */
-    (function initSupportWidget() {
-      const fab = document.getElementById('support-fab');
-      const popup = document.getElementById('support-popup');
-      const closeBtn = document.getElementById('support-close-btn');
-      const body = document.getElementById('support-body');
-
-      const defaultHTML = body.innerHTML;
-
-      fab.addEventListener('click', () => {
-        popup.classList.toggle('open');
-        if (popup.classList.contains('open')) {
-          const inp = document.getElementById('support-query');
-          if (inp) inp.focus();
-        }
-      });
-
-      closeBtn.addEventListener('click', () => popup.classList.remove('open'));
-
-      // Use event delegation so we never need to re-bind after innerHTML reset
-      body.addEventListener('click', (e) => {
-        const btn = e.target.closest('#support-send-btn');
-        if (!btn) return;
-        const inp = document.getElementById('support-query');
-        if (!inp || !inp.value.trim()) { if (inp) inp.focus(); return; }
-        body.innerHTML = '<p class="support-success">✅ Thank you! Our support team will reach out shortly.</p>';
-        setTimeout(() => {
-          popup.classList.remove('open');
-          setTimeout(() => { body.innerHTML = defaultHTML; }, 400);
-        }, 2000);
-      });
-
-      body.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' && e.target.id === 'support-query') {
-          const btn = document.getElementById('support-send-btn');
-          if (btn) btn.click();
-        }
-      });
-    })();
-
-    /* ──────────────────────────────────────────────────────────────────
-       AI SMART MATCH MODAL
-    ────────────────────────────────────────────────────────────────── */
-    (function () {
-      const overlay      = document.getElementById('ai-overlay');
-      const closeBtn     = document.getElementById('ai-close-btn');
-      const analyzeBtn   = document.getElementById('ai-analyze-btn');
-      const dispatchBtn  = document.getElementById('ai-dispatch-btn');
-      const retryBtn     = document.getElementById('ai-retry-btn');
-      const heroAiBtn    = document.getElementById('hero-ai-btn');
-
-      const phaseInput   = document.getElementById('ai-phase-input');
-      const phaseProc    = document.getElementById('ai-phase-processing');
-      const phaseResult  = document.getElementById('ai-phase-result');
-
-      const inputError   = document.getElementById('ai-input-error');
-      const step1        = document.getElementById('ai-step-1');
-      const step2        = document.getElementById('ai-step-2');
-      const step3        = document.getElementById('ai-step-3');
-      const urgencyBadge = document.getElementById('ai-urgency-badge');
-
-      let matchedWorker  = null;
-      let detectedUrgency = 'Normal';
-      let detectedService = '';
-      let userProblemText = '';
-
-      /* Open/close helpers */
-      function openAI() {
-        overlay.classList.add('open');
-        resetToInput();
-        setTimeout(() => document.getElementById('ai-problem-input').focus(), 80);
-      }
-      function closeAI() { overlay.classList.remove('open'); }
-
-      heroAiBtn.addEventListener('click', openAI);
-      closeBtn.addEventListener('click', closeAI);
-      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeAI(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAI(); });
-
-      function resetToInput() {
-        phaseInput.style.display  = '';
-        phaseProc.style.display   = 'none';
-        phaseResult.style.display = 'none';
-        inputError.textContent    = '';
-        inputError.classList.remove('visible');
-        document.getElementById('ai-problem-input').value = '';
-        document.getElementById('ai-location-input').value = '';
-      }
-
-      /* ── Service keyword mapping (extended & prioritised) ── */
-      const SERVICE_MAP = [
-        { keywords: ['electric','wire','wiring','spark','socket','switch','power','light','fan','current','fuse','short circuit','trip','mcb'], service: 'Electrician' },
-        { keywords: ['leak','pipe','drain','plumb','water','sink','tap','toilet','cistern','flush','overflow'], service: 'Plumbing' },
-        { keywords: ['ac','air conditioner','air condition','aircon','cool','cooling','filter','compressor','gas refill','refriger'], service: 'AC Repair' },
-        { keywords: ['carpenter','cupboard','wood','table','chair','door','furniture','wardrobe','hinge','shelf','cabinet','almirah'], service: 'Carpentry' },
-        { keywords: ['paint','wall','color','colour','whitewash','primer','coat','brush','distemper'], service: 'Painting' },
-        { keywords: ['clean','maid','mop','sweep','dust','broom','vacuum','wash','hygiene','sanitize','scrub'], service: 'House Cleaning' },
-      ];
-
-      const URGENCY_WORDS = ['urgent','emergency','asap','flood','flooding','immediately','quick','fast','broken','burst'];
-
-      function detectService(text) {
-        const lower = text.toLowerCase();
-        for (const entry of SERVICE_MAP) {
-          if (entry.keywords.some(k => lower.includes(k))) return entry.service;
-        }
-        return null;
-      }
-
-      function detectUrgency(text) {
-        const lower = text.toLowerCase();
-        return URGENCY_WORDS.some(w => lower.includes(w)) ? 'HIGH' : 'Normal';
-      }
-
-      /* ── Fetch best matching worker from API ── */
-      async function fetchBestWorker(service, location) {
-        try {
-          // Try service + location match first
-          let url = `${API_BASE}/workers?service=${encodeURIComponent(service)}`;
-          if (location) url += `&location=${encodeURIComponent(location)}`;
-          const res = await fetch(url);
-          const data = await res.json();
-          if (data.success && data.workers.length > 0) {
-            return data.workers.sort((a, b) => b.rating - a.rating)[0];
-          }
-          // Fallback: service only (ignore location)
-          const res2 = await fetch(`${API_BASE}/workers?service=${encodeURIComponent(service)}`);
-          const data2 = await res2.json();
-          if (data2.success && data2.workers.length > 0) {
-            return data2.workers.sort((a, b) => b.rating - a.rating)[0];
-          }
-          // Last resort: top-rated worker across the whole cooperative
-          const res3 = await fetch(`${API_BASE}/workers`);
-          const data3 = await res3.json();
-          if (data3.success && data3.workers.length > 0) {
-            return data3.workers.sort((a, b) => b.rating - a.rating)[0];
-          }
-        } catch (_) {}
-        return null;
-      }
-
-      /* ── Animated step reveal ── */
-      function animateSteps(urgency, onDone) {
-        step1.style.opacity = '1';
-        step2.style.opacity = '.3';
-        step3.style.opacity = '.3';
-        urgencyBadge.textContent = urgency === 'HIGH' ? 'Urgency: HIGH' : 'Urgency: Normal';
-        urgencyBadge.className   = 'ai-step-badge ' + (urgency === 'HIGH' ? 'urgent' : 'normal');
-
-        setTimeout(() => {
-          step2.style.opacity = '1';
-          setTimeout(() => {
-            step3.style.opacity = '1';
-            setTimeout(onDone, 500);
-          }, 700);
-        }, 700);
-      }
-
-      /* ── Populate result card ── */
-      function showResult(worker, urgency, score) {
-        phaseProc.style.display  = 'none';
-        phaseResult.style.display = '';
-
-        const name = worker.name;
-        document.getElementById('ai-result-avatar').textContent  = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
-        document.getElementById('ai-result-name').textContent    = name;
-        document.getElementById('ai-result-service').textContent = worker.service;
-        document.getElementById('ai-result-location').textContent = '\uD83D\uDCCD ' + worker.location;
-        document.getElementById('ai-result-rating').textContent  = worker.rating + ' ★';
-        document.getElementById('ai-result-rate').textContent    = '\u20B9' + (worker.hourly_rate || '350') + '/hr';
-        document.getElementById('ai-score-val').textContent      = score + '%';
-        document.getElementById('ai-urgency-label').textContent  = urgency === 'HIGH' ? '\uD83D\uDD34 HIGH' : '\uD83D\uDFE2 Normal';
-      }
-
-      /* ── Analyze button click ── */
-      analyzeBtn.addEventListener('click', async () => {
-        const text     = document.getElementById('ai-problem-input').value.trim();
-        const location = document.getElementById('ai-location-input').value.trim();
-
-        if (!text || text.length < 10) {
-          inputError.textContent = 'Please describe your problem in at least 10 characters.';
-          inputError.classList.add('visible');
-          document.getElementById('ai-problem-input').focus();
-          return;
-        }
-
-        userProblemText  = text;
-        detectedService  = detectService(text) || 'Plumbing'; // fallback
-        detectedUrgency  = detectUrgency(text);
-
-        /* Switch to processing phase */
-        phaseInput.style.display  = 'none';
-        phaseProc.style.display   = '';
-        phaseResult.style.display = 'none';
-
-        /* Animate steps while fetching */
-        const [workerResult] = await Promise.all([
-          fetchBestWorker(detectedService, location),
-          new Promise(r => setTimeout(r, 1200))
-        ]);
-
-        animateSteps(detectedUrgency, () => {
-          matchedWorker = workerResult || {
-            name: 'Ravi Kumar', service: detectedService,
-            location: 'Andheri, Mumbai', rating: 4.8, hourly_rate: 350
-          };
-          const score = Math.floor(Math.random() * 4) + 95; // 95-98
-          showResult(matchedWorker, detectedUrgency, score);
-        });
-      });
-
-      /* ── Retry button ── */
-      retryBtn.addEventListener('click', resetToInput);
-
-      /* ── Auto-Dispatch: prefill booking form and submit ── */
-      dispatchBtn.addEventListener('click', () => {
-        if (!matchedWorker) return;
-        closeAI();
-
-        // Scroll to booking section
-        const bookingSection = document.getElementById('booking');
-        if (bookingSection) bookingSection.scrollIntoView({ behavior: 'smooth' });
-
-        // Switch to booking tab explicitly
-        const tabBookBtn = document.getElementById('tab-book');
-        if (tabBookBtn) tabBookBtn.click();
-
-        // Pre-fill booking form fields
-        setTimeout(() => {
-          const fieldMap = {
-            'book-service': matchedWorker.service,
-            'book-note':    userProblemText,
-            'book-worker':  matchedWorker.name
-          };
-          for (const [id, val] of Object.entries(fieldMap)) {
-            const el = document.getElementById(id);
-            if (el) {
-              el.value = val;
-              el.dispatchEvent(new Event('change'));
-              el.dispatchEvent(new Event('input'));
-            }
-          }
-          // If logged in, pre-fill name/phone from auth
-          if (AUTH.isLoggedIn()) {
-            const nameEl = document.getElementById('book-name');
-            if (nameEl && !nameEl.value) {
-              nameEl.value = AUTH.userName();
-              nameEl.dispatchEvent(new Event('input'));
-            }
-          }
-          showToast(`\uD83E\uDD16 AI matched: ${matchedWorker.name} (${matchedWorker.service}). Fill in your details below!`, 'success');
-        }, 600);
-      });
-    })();
   </script>
 </body>
-
 </html>

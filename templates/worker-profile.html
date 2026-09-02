@@ -1,174 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Worker Dashboard - Sahayog</title>
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    body { padding-top: 80px; }
-    .worker-dash { max-width: 800px; margin: 0 auto; padding: 20px; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; }
-    .status-badge { padding: 8px 16px; border-radius: 20px; font-weight: bold; }
-    .status-available { background: rgba(0,201,167,.2); color: var(--teal); }
-    .status-busy { background: rgba(255,101,132,.2); color: var(--error); }
-    .mic-btn { background: var(--primary); color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 10px rgba(108,99,255,.4); }
-    .mic-btn.recording { animation: pulse 1s infinite; background: var(--accent); }
-    .mic-hint { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Worker Dashboard – Sahayog</title>
+  <meta name="description" content="Manage your bookings, availability, and profile on Sahayog." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+
+  <!-- ── Navbar ──────────────────────────────────────────────────────────── -->
   <nav>
     <div class="container nav-inner">
       <div class="logo">
-        <span class="logo-text">Sahayog Worker</span>
+        <div class="logo-icon">🤝</div>
+        <span class="logo-text">Sahayog</span>
       </div>
-      <div id="nav-auth-area" style="display: flex; gap: 10px; align-items: center;">
-        <div class="user-chip" style="display: flex; align-items: center; gap: 8px;">
-          <span class="user-name">{{ user.name }}</span>
+      <div class="nav-auth">
+        <div class="user-chip">
+          <div class="user-avatar">{{ user.name[:2]|upper }}</div>
+          <span>{{ user.name }}</span>
         </div>
-        <a href="/logout" class="nav-cta">Logout</a>
+        <a href="/logout" class="nav-cta logout">Logout</a>
       </div>
     </div>
   </nav>
 
-  <div class="worker-dash">
-    <h1>Welcome, {{ user.name }}</h1>
-    
-    <div class="card">
-      <h2>Current Status: 
-        {% if worker.availability_status == 'available' %}
-          <span class="status-badge status-available">🟢 Available</span>
-        {% else %}
-          <span class="status-badge status-busy">⏳ On Active Job</span>
-        {% endif %}
-      </h2>
-      <p>Rating: {{ worker.rating }} ★ | Experience: {{ worker.experience_years }} yrs</p>
-    </div>
+  <!-- ── Page Body ──────────────────────────────────────────────────────── -->
+  <div class="worker-page">
+    <div class="worker-layout">
 
-    <div class="card">
-      <h2>Active Bookings</h2>
-      {% if active_bookings %}
-        {% for b in active_bookings %}
-        <div style="border:1px solid var(--border); padding:16px; border-radius:8px; margin-top:12px;">
-          <p><strong>Service:</strong> {{ b.service }}</p>
-          <p><strong>Address:</strong> {{ b.address }}</p>
-          <p><strong>Date:</strong> {{ b.booking_date }}</p>
-          <p><strong>Note:</strong> {{ b.note }}</p>
-          <button class="btn-primary" onclick="markCompleted('{{ b.id }}')">Mark Job Completed</button>
-        </div>
-        {% endfor %}
-      {% else %}
-        <p>No active bookings right now.</p>
-      {% endif %}
-    </div>
-
-    <div class="card">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <!-- Header -->
+      <div class="worker-page-header">
+        <div class="worker-big-avatar">{{ user.name[:2]|upper }}</div>
         <div>
-          <h2>Update Profile Info</h2>
-          <p class="mic-hint">Tap the mic and speak to auto-fill (e.g. "I am an Electrician in Pune")</p>
+          <h1 style="font-size:1.6rem; font-weight:800; margin-bottom:4px;">
+            Welcome back, {{ user.name.split()[0] }}!
+          </h1>
+          <p style="color:var(--muted); font-size:.9rem;">
+            {{ worker.service }} · {{ worker.location }}
+          </p>
         </div>
-        <button class="mic-btn" id="mic-btn" title="Tap to Speak">🎙️</button>
       </div>
-      
-      <div class="form-group" style="margin-top:20px;">
-        <label>Service/Trade</label>
-        <input type="text" id="prof-service" value="{{ worker.service }}" style="width:100%; padding:10px; background:var(--dark2); color:white; border:1px solid var(--border); border-radius:8px;">
+
+      <!-- ── Status Card ──────────────────────────────────────────────── -->
+      <div class="w-card">
+        <h2><span class="card-icon">📡</span> Live Status</h2>
+        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:16px;">
+          {% if worker.availability_status == 'available' %}
+            <span class="status-badge available">🟢 Available</span>
+          {% else %}
+            <span class="status-badge busy">⏳ On Active Job</span>
+          {% endif %}
+          <button class="toggle-btn" onclick="toggleStatus(this)">
+            Switch to {% if worker.availability_status == 'available' %}Busy{% else %}Available{% endif %}
+          </button>
+        </div>
+        <div style="display:flex; gap:28px; margin-top:20px; flex-wrap:wrap;">
+          <div>
+            <div style="font-size:1.6rem; font-weight:800; color:var(--primary);">{{ worker.rating }}⭐</div>
+            <div style="font-size:.8rem; color:var(--muted); text-transform:uppercase;">Rating</div>
+          </div>
+          <div>
+            <div style="font-size:1.6rem; font-weight:800; color:var(--teal);">{{ completed_count }}</div>
+            <div style="font-size:.8rem; color:var(--muted); text-transform:uppercase;">Jobs Done</div>
+          </div>
+          <div>
+            <div style="font-size:1.6rem; font-weight:800; color:var(--accent);">₹{{ worker.hourly_rate }}/hr</div>
+            <div style="font-size:.8rem; color:var(--muted); text-transform:uppercase;">Your Rate</div>
+          </div>
+          <div>
+            <div style="font-size:1.6rem; font-weight:800; color:var(--text);">{{ worker.experience_years }}yr</div>
+            <div style="font-size:.8rem; color:var(--muted); text-transform:uppercase;">Experience</div>
+          </div>
+        </div>
       </div>
-      <div class="form-group" style="margin-top:12px;">
-        <label>Location</label>
-        <input type="text" id="prof-location" value="{{ worker.location }}" style="width:100%; padding:10px; background:var(--dark2); color:white; border:1px solid var(--border); border-radius:8px;">
+
+      <!-- ── Active Bookings ──────────────────────────────────────────── -->
+      <div class="w-card">
+        <h2><span class="card-icon">📋</span>
+          Active Bookings
+          <span style="font-size:.8rem; font-weight:400; color:var(--muted);">({{ active_bookings|length }} pending)</span>
+        </h2>
+        {% if active_bookings %}
+          {% for b in active_bookings %}
+          <div class="booking-item">
+            <div class="booking-info">
+              <p><strong>Service:</strong> {{ b.service }}</p>
+              <p><strong>Address:</strong> {{ b.address }}</p>
+              <p><strong>Date:</strong> {{ b.booking_date }}</p>
+              {% if b.note %}<p><strong>Note:</strong> {{ b.note }}</p>{% endif %}
+              <p style="font-size:.78rem; color:var(--muted);">Booking ID: BK{{ '%04d' % b.id }}</p>
+            </div>
+            <button class="complete-btn" onclick="markCompleted({{ b.id }}, this)">
+              ✅ Mark Completed
+            </button>
+          </div>
+          {% endfor %}
+        {% else %}
+          <div style="text-align:center; padding:24px; color:var(--muted);">
+            <div style="font-size:2rem; margin-bottom:8px;">🎉</div>
+            <p>No active bookings right now. You're free!</p>
+          </div>
+        {% endif %}
       </div>
-      <p id="speech-status" style="color:var(--teal); margin-top:10px; display:none;">Listening...</p>
+
+      <!-- ── Profile Management ───────────────────────────────────────── -->
+      <div class="w-card">
+        <h2>
+          <span class="card-icon">👤</span> Profile Info
+          <button class="mic-btn" id="mic-btn" title="Speak to update your trade or location" style="margin-left:auto; font-size:18px;">🎙️</button>
+        </h2>
+        <p style="font-size:.82rem; color:var(--muted); margin-top:-10px; margin-bottom:18px;">
+          Tap 🎙️ and say your trade and city to auto-fill. Fields in grey are read-only.
+        </p>
+        <p class="voice-status" id="voice-status"></p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;">
+          <div class="profile-field">
+            <label>Name</label>
+            <input type="text" value="{{ user.name }}" readonly />
+          </div>
+          <div class="profile-field">
+            <label>Phone</label>
+            <input type="text" value="{{ user.phone }}" readonly />
+          </div>
+          <div class="profile-field">
+            <label>Trade / Service</label>
+            <input type="text" id="prof-service" value="{{ worker.service }}" />
+          </div>
+          <div class="profile-field">
+            <label>Location / Area</label>
+            <input type="text" id="prof-location" value="{{ worker.location }}" />
+          </div>
+          <div class="profile-field">
+            <label>Experience (yrs)</label>
+            <input type="text" value="{{ worker.experience_years }}" readonly />
+          </div>
+          <div class="profile-field">
+            <label>Hourly Rate (₹)</label>
+            <input type="text" value="{{ worker.hourly_rate }}" readonly />
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
+  <!-- Toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
   <script>
-    async function markCompleted(bookingId) {
-      const res = await fetch(`/api/complete-job/${bookingId}`, { method: 'POST' });
-      const data = await res.json();
-      if(data.success) {
-        window.location.reload();
-      } else {
-        alert(data.message);
+    /* ── Toast ─────────────────────────────────────────────────────────────── */
+    function showToast(msg, type = 'success') {
+      const tc = document.getElementById('toast-container');
+      const t  = document.createElement('div');
+      t.className = `toast ${type}`;
+      t.innerHTML = `<span>${type === 'success' ? '✅' : '❌'}</span> ${msg}`;
+      tc.appendChild(t);
+      setTimeout(() => t.remove(), 4000);
+    }
+
+    /* ── Mark Job Completed ─────────────────────────────────────────────────── */
+    async function markCompleted(bookingId, btn) {
+      btn.disabled = true;
+      btn.textContent = '⏳ Saving…';
+      try {
+        const res  = await fetch(`/api/complete-job/${bookingId}`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast(data.message, 'success');
+          setTimeout(() => window.location.reload(), 1200);
+        } else {
+          showToast(data.message, 'error');
+          btn.disabled = false; btn.textContent = '✅ Mark Completed';
+        }
+      } catch {
+        showToast('Server error. Please try again.', 'error');
+        btn.disabled = false; btn.textContent = '✅ Mark Completed';
       }
     }
 
-    // Web Speech API Integration
+    /* ── Toggle Availability ────────────────────────────────────────────────── */
+    async function toggleStatus(btn) {
+      btn.disabled = true; btn.textContent = 'Updating…';
+      try {
+        const res  = await fetch('/api/worker/status', { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast(`Status updated to: ${data.new_status === 'available' ? '🟢 Available' : '⏳ Busy'}`, 'success');
+          setTimeout(() => window.location.reload(), 1000);
+        } else {
+          showToast(data.message, 'error');
+          btn.disabled = false;
+        }
+      } catch {
+        showToast('Server error.', 'error');
+        btn.disabled = false;
+      }
+    }
+
+    /* ── Web Speech API ─────────────────────────────────────────────────────── */
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (SpeechRecognition) {
+    const micBtn    = document.getElementById('mic-btn');
+    const statusEl  = document.getElementById('voice-status');
+    const serviceEl = document.getElementById('prof-service');
+    const locationEl= document.getElementById('prof-location');
+
+    if (!SpeechRecognition) {
+      micBtn.style.display = 'none';
+      statusEl.textContent  = 'Voice input not supported in this browser. Use Chrome or Edge.';
+    } else {
       const recognition = new SpeechRecognition();
+      recognition.lang  = 'hi-IN';
       recognition.continuous = false;
       recognition.interimResults = false;
-      
-      const micBtn = document.getElementById('mic-btn');
-      const statusText = document.getElementById('speech-status');
-      const serviceInput = document.getElementById('prof-service');
-      const locationInput = document.getElementById('prof-location');
-      
-      let isRecording = false;
+      let recording = false;
 
       micBtn.addEventListener('click', () => {
-        if(isRecording) {
-          recognition.stop();
-          return;
-        }
-        
-        // Toggle language based on user context or just allow the browser to auto-detect. 
-        // We set to hi-IN but it generally captures en-IN well too if spoken.
-        recognition.lang = 'hi-IN'; 
-        
+        if (recording) { recognition.stop(); return; }
         recognition.start();
-        isRecording = true;
+        recording = true;
         micBtn.classList.add('recording');
-        statusText.style.display = 'block';
-        statusText.textContent = 'Listening (Hindi/English)...';
+        statusEl.textContent = '🎙️ Listening… (Hindi/English supported)';
       });
 
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.toLowerCase();
-        statusText.textContent = 'Heard: "' + transcript + '"';
-        
-        // Basic NLP parsing
-        if(transcript.includes('electrician') || transcript.includes('bijli')) {
-          serviceInput.value = 'Electrician';
-        } else if(transcript.includes('plumb') || transcript.includes('pani') || transcript.includes('pipe')) {
-          serviceInput.value = 'Plumbing';
-        } else if(transcript.includes('clean') || transcript.includes('saaf')) {
-          serviceInput.value = 'Cleaning';
-        } else if(transcript.includes('carpenter') || transcript.includes('lakdi')) {
-          serviceInput.value = 'Carpentry';
-        } else if(transcript.includes('paint') || transcript.includes('rang')) {
-          serviceInput.value = 'Painting';
-        } else if(transcript.includes('ac ') || transcript.includes('ac repair')) {
-          serviceInput.value = 'AC Repair';
+      recognition.onresult = (e) => {
+        const t = e.results[0][0].transcript.toLowerCase();
+        statusEl.textContent = `Heard: "${t}"`;
+
+        // Keyword → Trade mapping
+        const TRADE_MAP = {
+          'electrician': ['electric', 'bijli', 'wire', 'switch', 'spark', 'current', 'light', 'fan'],
+          'Plumbing':    ['plumb', 'pipe', 'pani', 'leak', 'tap', 'sink', 'drain', 'toilet', 'nalkaa'],
+          'House Cleaning': ['clean', 'saaf', 'sweep', 'mop', 'jhadu', 'dust'],
+          'Carpentry':   ['carpenter', 'wood', 'lakdi', 'furniture', 'door', 'shelf'],
+          'Painting':    ['paint', 'rang', 'wall', 'colour'],
+          'AC Repair':   ['ac', 'air condition', 'cooler', 'cool'],
+          'Cooking':     ['cook', 'khana', 'food', 'chef'],
+        };
+
+        for (const [trade, kws] of Object.entries(TRADE_MAP)) {
+          if (kws.some(kw => t.includes(kw))) {
+            serviceEl.value = trade;
+            break;
+          }
         }
 
-        // Extremely basic location extraction (assuming "in Pune" or "Pune mein")
-        const cities = ['mumbai', 'pune', 'delhi', 'bangalore', 'chennai', 'kolkata'];
-        for(let city of cities) {
-          if(transcript.includes(city)) {
-            locationInput.value = city.charAt(0).toUpperCase() + city.slice(1);
+        // City extraction
+        const CITIES = ['mumbai', 'pune', 'delhi', 'bangalore', 'chennai', 'kolkata', 'hyderabad', 'ahmedabad', 'jaipur', 'lucknow'];
+        for (const city of CITIES) {
+          if (t.includes(city)) {
+            locationEl.value = city.charAt(0).toUpperCase() + city.slice(1);
             break;
           }
         }
       };
 
-      recognition.onerror = (event) => {
-        statusText.textContent = 'Error: ' + event.error;
-        stopRecording();
-      };
-      
-      recognition.onend = () => stopRecording();
-      
-      function stopRecording() {
-        isRecording = false;
+      recognition.onerror = (e) => {
+        statusEl.textContent = `Error: ${e.error}. Try again.`;
+        recording = false;
         micBtn.classList.remove('recording');
-        setTimeout(() => { statusText.style.display = 'none'; }, 3000);
-      }
-    } else {
-      document.getElementById('mic-btn').style.display = 'none';
-      document.querySelector('.mic-hint').textContent = 'Voice input not supported in this browser.';
+      };
+
+      recognition.onend = () => {
+        recording = false;
+        micBtn.classList.remove('recording');
+        setTimeout(() => { statusEl.textContent = ''; }, 4000);
+      };
     }
   </script>
 </body>

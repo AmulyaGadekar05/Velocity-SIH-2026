@@ -1,126 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Login - Sahayog</title>
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    body { display: flex; align-items: center; justify-content: center; height: 100vh; }
-    .auth-card { position: static; max-width: 400px; width: 100%; box-shadow: var(--shadow); }
-    .auth-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-    .auth-tab { flex: 1; text-align: center; padding: 10px; cursor: pointer; border-bottom: 2px solid transparent; }
-    .auth-tab.active { border-bottom-color: var(--primary); color: var(--primary); font-weight: bold; }
-    .auth-panel { display: none; }
-    .auth-panel.active { display: block; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – Sahayog</title>
+  <meta name="description" content="Log in or sign up to Sahayog – India's cooperative gig services platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
-  <div class="auth-card">
-    <h2>Sahayog Authentication</h2>
-    <div class="auth-tabs">
-      <div class="auth-tab active" id="tab-login">Login</div>
-      <div class="auth-tab" id="tab-signup">Sign Up</div>
-    </div>
-    
-    <div class="auth-panel active" id="panel-login">
-      <form id="login-form">
+
+  <div class="auth-page">
+    <div class="auth-box">
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <div class="auth-logo-icon">🤝</div>
+        <h1>Sahayog</h1>
+        <p>Cooperative Gig Services · SIH 2026</p>
+      </div>
+
+      <!-- Main tabs: Login vs Sign Up -->
+      <div class="auth-tabs" id="main-tabs">
+        <div class="auth-tab active" id="tab-login-main" onclick="switchMainTab('login')">Login</div>
+        <div class="auth-tab" id="tab-signup-main" onclick="switchMainTab('signup')">Sign Up</div>
+      </div>
+
+      <!-- ── LOGIN PANEL ── -->
+      <div class="auth-panel active" id="panel-login">
         <div class="auth-field">
-          <label>Phone Number</label>
-          <input type="tel" id="login-phone" required>
+          <label for="login-phone">Phone Number</label>
+          <input type="tel" id="login-phone" placeholder="e.g. 9876543210" maxlength="10" inputmode="numeric" />
         </div>
-        <button type="submit" class="auth-submit">Login</button>
-      </form>
-    </div>
-    
-    <div class="auth-panel" id="panel-signup">
-      <form id="signup-form">
+        <button class="auth-btn" id="login-btn" onclick="doLogin()">Login to Sahayog</button>
+        <p class="auth-error" id="login-error"></p>
+      </div>
+
+      <!-- ── SIGN UP PANEL ── -->
+      <div class="auth-panel" id="panel-signup">
+
+        <!-- Role selector -->
+        <div class="role-switch" style="margin-bottom:20px;">
+          <div class="role-badge active" id="role-client" onclick="selectRole('client')">👤 I'm a Client</div>
+          <div class="role-badge" id="role-worker" onclick="selectRole('worker')">🔧 I'm a Worker</div>
+        </div>
+        <input type="hidden" id="signup-role-val" value="client" />
+
+        <!-- Common fields -->
         <div class="auth-field">
-          <label>Name</label>
-          <input type="text" id="signup-name" required>
+          <label for="signup-name">Full Name</label>
+          <input type="text" id="signup-name" placeholder="e.g. Priya Sharma" />
         </div>
         <div class="auth-field">
-          <label>Phone Number</label>
-          <input type="tel" id="signup-phone" required>
+          <label for="signup-phone">Phone Number</label>
+          <input type="tel" id="signup-phone" placeholder="e.g. 9876543210" maxlength="10" inputmode="numeric" />
         </div>
-        <div class="auth-field">
-          <label>Role</label>
-          <select id="signup-role" required style="width:100%; padding:8px 10px; background:var(--dark2); color:var(--text); border:1px solid var(--border); border-radius:var(--radius);">
-            <option value="client">Client</option>
-            <option value="worker">Worker</option>
-          </select>
-        </div>
-        <div id="worker-fields" style="display:none;">
+
+        <!-- Worker-only fields (animated collapse) -->
+        <div class="worker-fields" id="worker-fields">
           <div class="auth-field">
-            <label>Service/Trade</label>
-            <input type="text" id="signup-service">
+            <label for="signup-service">Trade / Service</label>
+            <select id="signup-service">
+              <option value="" disabled selected>Select your trade…</option>
+              <option>Plumbing</option>
+              <option>Electrician</option>
+              <option>House Cleaning</option>
+              <option>Carpentry</option>
+              <option>Painting</option>
+              <option>AC Repair</option>
+              <option>Cooking</option>
+              <option>Babysitting</option>
+              <option>Gardening</option>
+            </select>
           </div>
           <div class="auth-field">
-            <label>Location</label>
-            <input type="text" id="signup-location">
+            <label for="signup-location">Your Location / Area</label>
+            <input type="text" id="signup-location" placeholder="e.g. Andheri, Mumbai" />
+          </div>
+          <div class="auth-field">
+            <label for="signup-experience">Years of Experience</label>
+            <input type="number" id="signup-experience" placeholder="e.g. 5" min="0" max="50" />
+          </div>
+          <div class="auth-field">
+            <label for="signup-rate">Hourly Rate (₹)</label>
+            <input type="number" id="signup-rate" placeholder="e.g. 350" min="50" max="5000" />
           </div>
         </div>
-        <button type="submit" class="auth-submit">Sign Up</button>
-      </form>
+
+        <button class="auth-btn" id="signup-btn" onclick="doSignup()">Create Account</button>
+        <p class="auth-error" id="signup-error"></p>
+      </div>
+
     </div>
   </div>
 
   <script>
-    document.getElementById('tab-login').onclick = () => {
-      document.getElementById('tab-login').classList.add('active');
-      document.getElementById('tab-signup').classList.remove('active');
-      document.getElementById('panel-login').classList.add('active');
-      document.getElementById('panel-signup').classList.remove('active');
-    };
-    document.getElementById('tab-signup').onclick = () => {
-      document.getElementById('tab-signup').classList.add('active');
-      document.getElementById('tab-login').classList.remove('active');
-      document.getElementById('panel-signup').classList.add('active');
-      document.getElementById('panel-login').classList.remove('active');
-    };
-    
-    document.getElementById('signup-role').onchange = (e) => {
-      document.getElementById('worker-fields').style.display = e.target.value === 'worker' ? 'block' : 'none';
-    };
+    // ── Tab Switching ─────────────────────────────────────────────────────────
+    function switchMainTab(tab) {
+      const isLogin = tab === 'login';
+      document.getElementById('tab-login-main').classList.toggle('active', isLogin);
+      document.getElementById('tab-signup-main').classList.toggle('active', !isLogin);
+      document.getElementById('panel-login').classList.toggle('active', isLogin);
+      document.getElementById('panel-signup').classList.toggle('active', !isLogin);
+      document.getElementById('login-error').textContent = '';
+      document.getElementById('signup-error').textContent = '';
+    }
 
-    document.getElementById('login-form').onsubmit = async (e) => {
-      e.preventDefault();
-      const phone = document.getElementById('login-phone').value;
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({phone})
-      });
-      const data = await res.json();
-      if(data.success) {
-        window.location.href = '/';
-      } else {
-        alert(data.message);
+    // ── Role Selector ─────────────────────────────────────────────────────────
+    function selectRole(role) {
+      document.getElementById('signup-role-val').value = role;
+      document.getElementById('role-client').classList.toggle('active', role === 'client');
+      document.getElementById('role-worker').classList.toggle('active', role === 'worker');
+      const wf = document.getElementById('worker-fields');
+      wf.classList.toggle('open', role === 'worker');
+    }
+
+    // ── Login ─────────────────────────────────────────────────────────────────
+    async function doLogin() {
+      const phone = document.getElementById('login-phone').value.trim();
+      const errEl = document.getElementById('login-error');
+      const btn   = document.getElementById('login-btn');
+      errEl.textContent = '';
+      if (!/^\d{10}$/.test(phone)) { errEl.textContent = 'Enter a valid 10-digit phone number.'; return; }
+      btn.disabled = true; btn.textContent = 'Logging in…';
+      try {
+        const res  = await fetch('/api/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ phone })
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.location.href = data.role === 'worker' ? '/worker-profile' : '/';
+        } else {
+          errEl.textContent = data.message;
+          btn.disabled = false; btn.textContent = 'Login to Sahayog';
+        }
+      } catch {
+        errEl.textContent = 'Server unreachable. Please ensure app.py is running.';
+        btn.disabled = false; btn.textContent = 'Login to Sahayog';
       }
-    };
-    
-    document.getElementById('signup-form').onsubmit = async (e) => {
-      e.preventDefault();
-      const payload = {
-        name: document.getElementById('signup-name').value,
-        phone: document.getElementById('signup-phone').value,
-        role: document.getElementById('signup-role').value,
-      };
-      if (payload.role === 'worker') {
-        payload.service = document.getElementById('signup-service').value;
-        payload.location = document.getElementById('signup-location').value;
+    }
+
+    // ── Sign Up ───────────────────────────────────────────────────────────────
+    async function doSignup() {
+      const role     = document.getElementById('signup-role-val').value;
+      const name     = document.getElementById('signup-name').value.trim();
+      const phone    = document.getElementById('signup-phone').value.trim();
+      const errEl    = document.getElementById('signup-error');
+      const btn      = document.getElementById('signup-btn');
+      errEl.textContent = '';
+      if (!name) { errEl.textContent = 'Full name is required.'; return; }
+      if (!/^\d{10}$/.test(phone)) { errEl.textContent = 'Enter a valid 10-digit phone number.'; return; }
+      const payload = { name, phone, role };
+      if (role === 'worker') {
+        payload.service         = document.getElementById('signup-service').value;
+        payload.location        = document.getElementById('signup-location').value.trim();
+        payload.experience_years= parseInt(document.getElementById('signup-experience').value) || 1;
+        payload.hourly_rate     = parseInt(document.getElementById('signup-rate').value) || 300;
+        if (!payload.service) { errEl.textContent = 'Please select your trade/service.'; return; }
+        if (!payload.location) { errEl.textContent = 'Please enter your location.'; return; }
       }
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if(data.success) {
-        window.location.href = '/';
-      } else {
-        alert(data.message);
+      btn.disabled = true; btn.textContent = 'Creating account…';
+      try {
+        const res  = await fetch('/api/register', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.location.href = data.role === 'worker' ? '/worker-profile' : '/';
+        } else {
+          errEl.textContent = data.message;
+          btn.disabled = false; btn.textContent = 'Create Account';
+        }
+      } catch {
+        errEl.textContent = 'Server unreachable. Please ensure app.py is running.';
+        btn.disabled = false; btn.textContent = 'Create Account';
       }
-    };
+    }
+
+    // Enter key support
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter') return;
+      if (document.getElementById('panel-login').classList.contains('active')) doLogin();
+      else doSignup();
+    });
   </script>
 </body>
 </html>
