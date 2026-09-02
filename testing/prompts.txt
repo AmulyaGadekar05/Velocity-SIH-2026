@@ -1,37 +1,35 @@
-Keep the existing 3-file structure (index.html, app.py, requirements.txt). Do not create new files. Apply the following 4 updates directly to index.html:
+Keep the single-file frontend in index.html and the existing backend. Do not create new directories or config files. Implement these 3 specific updates:
 
-1. Fix the Hero Buttons:
+1. Rebranding to 'Sahayog' & Asset Logo:
 
-Ensure the 'Book a Service' and 'Become a Worker' buttons in the Hero section work properly on click.
+Change the application name throughout the UI (navbar, hero, page <title>, footer, toasts) from VelocityGig to Sahayog.
 
-'Book a Service' should smoothly scroll to the booking section (#booking-section or equivalent) and activate the Booking tab.
+In the navbar, replace any text placeholder or default icon with our actual logo image located at assets/logo.png (or .svg / relative path). Set an appropriate height (around 36px to 42px) and add alt="Sahayog Logo". Place the brand name Sahayog neatly next to it using 'Baloo Bhai 2'.
 
-'Become a Worker' should smoothly scroll to the worker registration section and activate the Worker tab.
+2. Dual-State Auth Modal (Login & Sign Up):
 
-Fix any broken event listeners or mismatched target IDs in the JavaScript.
+Upgrade the existing auth modal to contain two toggle tabs at the top: 'Log In' and 'Sign Up'.
 
-2. Font Change (Baloo Bhai 2):
+Add a smooth slide/fade transition when switching between the two tabs.
 
-Import Google Font 'Baloo Bhai 2' via a <link> tag in the <head> of index.html.
+Login Tab: Fields for Email/Phone and Password, with a 'Log In' button. Include a bottom helper text: "Don't have an account? Sign up" that flips to the Sign Up tab.
 
-Set font-family: 'Baloo Bhai 2', sans-serif; globally across the entire UI.
+Sign Up Tab: Fields for Full Name, Phone Number, Role (Client / Sahayogi Worker), and Create Password, with a 'Create Account' button. Include bottom helper text: "Already have an account? Log in".
 
-3. Floating Icons on Scroll:
+3. Working Frontend Mock Auth Logic:
 
-Add lightweight, floating decorative background icons (e.g., wrench, hammer, lightning, briefcases using simple SVG or CSS shapes) that float gently with subtle animation as the user scrolls, staying within the dark theme styling.
+Keep it purely client-side using localStorage (do not waste time wiring complex database authentication).
 
-4. Quick Support / Get Help Window (Frontend Only):
+Submitting either form should:
 
-Add a floating circular 'Help / Support' button in the bottom-right corner.
+Save isLoggedIn: true, the user's name, and their selected role into localStorage.
 
-Clicking it opens a compact slide-up support popup/modal with:
+Trigger a success toast ("Welcome to Sahayog, [Name]!").
 
-A quick FAQ or help message: "Need assistance? Reach our 24/7 SIH Hackathon desk at support@velocitygig.in or call +91-9876543210."
+Close the modal smoothly.
 
-A simple text input for a query and a 'Send Message' button.
+Update the navbar with the user's name, avatar initials badge, and a functional Logout button.
 
-Do NOT connect this to the backend API. On clicking 'Send', just display a success message: "Thank you! Our support team will reach out shortly." and auto-close after 2 seconds.
+Ensure clicking Logout clears localStorage, shows a toast ("Logged out successfully"), and reverts the navbar back to the 'Log In / Sign Up' button.
 
-Include a simple close (✕) button."*
-
-
+Maintain all prior fixes (no broken DOM element IDs or unhandled event listener errors)."
