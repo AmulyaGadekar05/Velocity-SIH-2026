@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from datetime import datetime
 import sqlite3
@@ -76,6 +76,18 @@ def init_db():
 
 # Initialise on startup
 init_db()
+
+
+# ── Serve index.html at root ────────────────────────────────────────────────
+@app.route('/')
+def index():
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'index.html')
+
+
+@app.route('/assets/<path:filename>')
+def assets(filename):
+    assets_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'assets')
+    return send_from_directory(assets_dir, filename)
 
 
 # ── GET /api/workers ──────────────────────────────────────────────────────────
@@ -219,4 +231,4 @@ def health():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
