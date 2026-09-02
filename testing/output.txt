@@ -1,0 +1,60 @@
+Prompt 1.Output
+
+
+✅ VelocityGig – Project Complete & Running
+📁 3-File Structure (exactly as requested)
+File	Purpose
+
+
+index.html
+Full UI – dark theme, CSS, JS event listeners
+
+
+app.py
+Flask backend with 4 REST API endpoints
+
+
+requirements.txt
+flask + flask-cors only
+🖥️ The 2 Terminal Commands
+Open your terminal inside c:\VelocitySIH\Velocity-SIH-2026\ and run:
+
+bash
+# 1. Install dependencies
+pip install -r requirements.txt
+# 2. Start the app
+python app.py
+Then open index.html directly in your browser (double-click it, or drag into Chrome). The page auto-connects to http://127.0.0.1:5000.
+
+🎯 What's Built
+Backend (app.py) — 4 working API endpoints:
+
+GET /api/workers?service=&location= — search workers
+POST /api/book — submit a booking
+POST /api/register-worker — worker joins cooperative
+GET /api/health — health check
+Frontend (index.html) — fully wired JS:
+
+Hero section — "Book a Service" & "Become a Worker" buttons scroll + activate tabs
+Service cards (8) — clicking each filters the worker list + auto-fills the form
+Search bar — filters workers by service AND location via API call
+Worker cards — "Book Now" button auto-selects the service in the form
+Booking form — validates phone (10-digit), calls POST /api/book, shows toast
+Worker registration form — calls POST /api/register-worker, refreshes worker list
+Tab switcher — toggles between the two forms
+Toast notifications — ✅ success (teal) / ❌ error (red) for all actions
+
+
+
+
+
+
+
+
+
+****************************************************************************************************************
+
+
+
+
+
