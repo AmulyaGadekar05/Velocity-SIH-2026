@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VelocityGig – Cooperative Gig Services Platform</title>
+  <title>Sahayog – Cooperative Gig Services Platform</title>
   <meta name="description"
     content="Connecting households with verified local gig workers for plumbing, cleaning, electrical, cooking, carpentry, and more – cooperative model ensuring fair pay." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -143,13 +143,27 @@
     }
 
     .logo {
-      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-size: 1.45rem;
       font-weight: 800;
       background: linear-gradient(135deg, var(--primary), var(--teal));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-decoration: none;
+      font-family: 'Baloo Bhai 2', sans-serif;
+      letter-spacing: -0.01em;
     }
 
     .nav-links {
@@ -984,7 +998,7 @@
       font-size: .92rem;
     }
 
-    /* ── Login Modal ──────────────────────────────────────────────── */
+    /* ── Auth Modal ───────────────────────────────────────────────── */
     #login-overlay {
       position: fixed;
       inset: 0;
@@ -1008,9 +1022,9 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 44px 40px 36px;
+      padding: 36px 40px 32px;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       box-shadow: 0 32px 80px rgba(0, 0, 0, .6), 0 0 0 1px rgba(108,99,255,.15);
       transform: translateY(24px) scale(.97);
       transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
@@ -1023,37 +1037,91 @@
       opacity: 1;
     }
 
-    .login-card .login-logo {
-      font-size: 1.6rem;
+    /* Modal logo / brand */
+    .modal-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .modal-brand img {
+      height: 32px;
+      width: auto;
+    }
+
+    .modal-brand-text {
+      font-size: 1.4rem;
       font-weight: 800;
       background: linear-gradient(135deg, var(--primary), var(--teal));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-align: center;
-      margin-bottom: 6px;
+      font-family: 'Baloo Bhai 2', sans-serif;
+    }
+
+    /* Auth tabs inside modal */
+    .auth-tabs {
+      display: flex;
+      background: var(--dark3);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .auth-tab-btn {
+      flex: 1;
+      padding: 9px 0;
+      border: none;
+      border-radius: 9px;
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      background: transparent;
+      color: var(--muted);
+      transition: all .3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .auth-tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), #8b5cf6);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(108, 99, 255, .4);
+    }
+
+    /* Tab panels with slide/fade transition */
+    .auth-panel {
+      display: none;
+      animation: authFadeIn .35s ease forwards;
+    }
+
+    .auth-panel.active {
       display: block;
     }
 
-    .login-card h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 6px;
+    @keyframes authFadeIn {
+      from { opacity: 0; transform: translateX(12px); }
+      to   { opacity: 1; transform: translateX(0); }
     }
 
-    .login-card .login-sub {
-      color: var(--muted);
-      font-size: .85rem;
-      text-align: center;
-      margin-bottom: 28px;
+    .auth-panel-signup {
+      animation-name: authFadeInLeft;
+    }
+
+    @keyframes authFadeInLeft {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
     }
 
     .login-field {
       display: flex;
       flex-direction: column;
       gap: 7px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .login-field label {
@@ -1064,7 +1132,8 @@
       text-transform: uppercase;
     }
 
-    .login-field input {
+    .login-field input,
+    .login-field select {
       background: var(--dark3);
       border: 1px solid var(--border);
       color: var(--text);
@@ -1074,18 +1143,24 @@
       font-family: inherit;
       outline: none;
       transition: border-color .2s, box-shadow .2s;
+      width: 100%;
+    }
+
+    .login-field select option {
+      background: var(--dark3);
     }
 
     .login-field input::placeholder {
       color: var(--muted);
     }
 
-    .login-field input:focus {
+    .login-field input:focus,
+    .login-field select:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(108,99,255,.18);
     }
 
-    #login-error {
+    .auth-error {
       color: var(--error);
       font-size: .83rem;
       font-weight: 500;
@@ -1095,7 +1170,7 @@
       display: none;
     }
 
-    #login-error.visible {
+    .auth-error.visible {
       display: block;
     }
 
@@ -1112,6 +1187,7 @@
       letter-spacing: .02em;
       transition: transform .22s, box-shadow .22s;
       box-shadow: var(--shadow);
+      font-family: inherit;
     }
 
     .login-submit-btn:hover {
@@ -1139,11 +1215,23 @@
       background: rgba(255,255,255,.06);
     }
 
-    .login-hint {
+    .auth-switch-hint {
       margin-top: 18px;
       text-align: center;
       color: var(--muted);
-      font-size: .8rem;
+      font-size: .82rem;
+    }
+
+    .auth-switch-link {
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .auth-switch-link:hover {
+      color: var(--teal);
     }
 
     /* ── Navbar Auth Chip ─────────────────────────────────────────── */
@@ -1163,6 +1251,7 @@
       font-weight: 600;
       cursor: pointer;
       transition: transform .2s, box-shadow .2s;
+      font-family: inherit;
     }
 
     #login-btn:hover {
@@ -1218,7 +1307,7 @@
 
     @media (max-width: 640px) {
       .login-card {
-        padding: 32px 22px 28px;
+        padding: 28px 20px 24px;
         margin: 0 16px;
       }
     }
@@ -1272,37 +1361,88 @@
   <!-- ── Toast Notification ─────────────────────────────────────────── -->
   <div id="toast" role="alert" aria-live="polite"></div>
 
-  <!-- ── Login Modal ───────────────────────────────────────────────── -->
-  <div id="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-heading">
+  <!-- ── Auth Modal (Login & Sign Up) ───────────────────────────────── -->
+  <div id="login-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-heading">
     <div class="login-card">
-      <button class="login-close-btn" id="login-close-btn" aria-label="Close login">&#10005;</button>
-      <span class="login-logo">⚡ VelocityGig</span>
-      <h2 id="login-heading">Welcome Back</h2>
-      <p class="login-sub">Sign in to book services &amp; manage your account</p>
+      <button class="login-close-btn" id="login-close-btn" aria-label="Close">&#10005;</button>
 
-      <form id="login-form" novalidate autocomplete="on">
-        <div class="login-field">
-          <label for="login-username">Username</label>
-          <input type="text" id="login-username" name="username"
-            placeholder="Enter any username" autocomplete="username" required />
-        </div>
-        <div class="login-field">
-          <label for="login-password">Password</label>
-          <input type="password" id="login-password" name="password"
-            placeholder="Enter any password" autocomplete="current-password" required />
-        </div>
-        <div id="login-error" role="alert"></div>
-        <button type="submit" class="login-submit-btn" id="login-submit-btn">Sign In →</button>
-      </form>
+      <!-- Brand inside modal -->
+      <div class="modal-brand">
+        <img src="assets/logo.png" alt="Sahayog Logo" />
+        <span class="modal-brand-text">Sahayog</span>
+      </div>
 
-      <p class="login-hint">💡 Any username &amp; password will work — this is a demo.</p>
+      <!-- Toggle Tabs -->
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab-btn active" id="auth-tab-login" role="tab" aria-selected="true" aria-controls="auth-panel-login">Log In</button>
+        <button class="auth-tab-btn" id="auth-tab-signup" role="tab" aria-selected="false" aria-controls="auth-panel-signup">Sign Up</button>
+      </div>
+
+      <!-- ── Login Panel ── -->
+      <div class="auth-panel active" id="auth-panel-login" role="tabpanel" aria-labelledby="auth-tab-login">
+        <form id="login-form" novalidate autocomplete="on">
+          <div class="login-field">
+            <label for="login-email">Email / Phone</label>
+            <input type="text" id="login-email" name="email"
+              placeholder="Enter your email or phone" autocomplete="email" required />
+          </div>
+          <div class="login-field">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password"
+              placeholder="Enter your password" autocomplete="current-password" required />
+          </div>
+          <div class="auth-error" id="login-error" role="alert"></div>
+          <button type="submit" class="login-submit-btn" id="login-submit-btn">Log In →</button>
+        </form>
+        <p class="auth-switch-hint">
+          Don't have an account? <span class="auth-switch-link" id="switch-to-signup">Sign up</span>
+        </p>
+      </div>
+
+      <!-- ── Sign Up Panel ── -->
+      <div class="auth-panel auth-panel-signup" id="auth-panel-signup" role="tabpanel" aria-labelledby="auth-tab-signup">
+        <form id="signup-form" novalidate autocomplete="on">
+          <div class="login-field">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" name="name"
+              placeholder="e.g. Priya Sharma" autocomplete="name" required />
+          </div>
+          <div class="login-field">
+            <label for="signup-phone">Phone Number</label>
+            <input type="tel" id="signup-phone" name="phone"
+              placeholder="e.g. 9876543210" autocomplete="tel" required />
+          </div>
+          <div class="login-field">
+            <label for="signup-role">I am a…</label>
+            <select id="signup-role" name="role" required>
+              <option value="" disabled selected>Select your role…</option>
+              <option value="Client">Client (looking for services)</option>
+              <option value="Sahayogi Worker">Sahayogi Worker (offering services)</option>
+            </select>
+          </div>
+          <div class="login-field">
+            <label for="signup-password">Create Password</label>
+            <input type="password" id="signup-password" name="password"
+              placeholder="Create a strong password" autocomplete="new-password" required />
+          </div>
+          <div class="auth-error" id="signup-error" role="alert"></div>
+          <button type="submit" class="login-submit-btn" id="signup-submit-btn">Create Account →</button>
+        </form>
+        <p class="auth-switch-hint">
+          Already have an account? <span class="auth-switch-link" id="switch-to-login">Log in</span>
+        </p>
+      </div>
+
     </div>
   </div>
 
   <!-- ── Navbar ─────────────────────────────────────────────────────── -->
   <nav id="navbar">
     <div class="container nav-inner">
-      <a href="#" class="logo" id="logo-link">⚡ VelocityGig</a>
+      <a href="#" class="logo" id="logo-link">
+        <img src="assets/logo.png" alt="Sahayog Logo" />
+        <span class="logo-text">Sahayog</span>
+      </a>
       <ul class="nav-links">
         <li><a href="#services" id="nav-services">Services</a></li>
         <li><a href="#workers" id="nav-workers">Find Workers</a></li>
@@ -1533,7 +1673,7 @@
   <footer>
     <div class="container">
       <p>
-        Built by Team VelocityGig &nbsp;|&nbsp;
+        Built by Team <strong>Sahayog</strong> &nbsp;|&nbsp;
         <strong>Smart India Hackathon 2026</strong> &nbsp;|&nbsp;
         Empowering Cooperative Gig Economy
       </p>
@@ -1547,31 +1687,72 @@
     'use strict';
 
     /* ──────────────────────────────────────────────────────────────────
-       AUTH — localStorage session simulation
+       AUTH — localStorage session simulation (Sahayog)
     ────────────────────────────────────────────────────────────────── */
     const AUTH = {
       isLoggedIn: () => localStorage.getItem('isLoggedIn') === 'true',
-      userName: () => localStorage.getItem('userName') || '',
-      login(name) {
+      userName:   () => localStorage.getItem('userName') || '',
+      userRole:   () => localStorage.getItem('userRole') || '',
+      login(name, role) {
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userName', name);
+        localStorage.setItem('userName',   name);
+        localStorage.setItem('userRole',   role || 'Client');
       },
       logout() {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('userName');
+        localStorage.removeItem('userRole');
       }
     };
 
     /* ── DOM refs ───────────────────────────────────────────────────── */
     const loginOverlay    = document.getElementById('login-overlay');
     const loginForm       = document.getElementById('login-form');
+    const signupForm      = document.getElementById('signup-form');
     const loginErrorEl    = document.getElementById('login-error');
-    const loginBtn        = document.getElementById('login-btn');      // navbar Login
+    const signupErrorEl   = document.getElementById('signup-error');
+    const loginBtn        = document.getElementById('login-btn');
     const logoutBtn       = document.getElementById('logout-btn');
     const userChip        = document.getElementById('user-chip');
     const userNameDisplay = document.getElementById('user-name-display');
     const userAvatar      = document.getElementById('user-avatar');
     const loginCloseBtn   = document.getElementById('login-close-btn');
+    const authTabLogin    = document.getElementById('auth-tab-login');
+    const authTabSignup   = document.getElementById('auth-tab-signup');
+    const panelLogin      = document.getElementById('auth-panel-login');
+    const panelSignup     = document.getElementById('auth-panel-signup');
+
+    /* ── Auth Tab Switcher ──────────────────────────────────────────── */
+    function switchAuthTab(tab) {
+      if (tab === 'login') {
+        authTabLogin.classList.add('active');
+        authTabLogin.setAttribute('aria-selected', 'true');
+        authTabSignup.classList.remove('active');
+        authTabSignup.setAttribute('aria-selected', 'false');
+        panelLogin.classList.add('active');
+        panelSignup.classList.remove('active');
+        panelLogin.style.animationName = 'authFadeIn';
+        loginErrorEl.classList.remove('visible');
+        loginForm.reset();
+        setTimeout(() => document.getElementById('login-email').focus(), 50);
+      } else {
+        authTabSignup.classList.add('active');
+        authTabSignup.setAttribute('aria-selected', 'true');
+        authTabLogin.classList.remove('active');
+        authTabLogin.setAttribute('aria-selected', 'false');
+        panelSignup.classList.add('active');
+        panelLogin.classList.remove('active');
+        panelSignup.style.animationName = 'authFadeInLeft';
+        signupErrorEl.classList.remove('visible');
+        signupForm.reset();
+        setTimeout(() => document.getElementById('signup-name').focus(), 50);
+      }
+    }
+
+    authTabLogin.addEventListener('click',  () => switchAuthTab('login'));
+    authTabSignup.addEventListener('click', () => switchAuthTab('signup'));
+    document.getElementById('switch-to-signup').addEventListener('click', () => switchAuthTab('signup'));
+    document.getElementById('switch-to-login').addEventListener('click',  () => switchAuthTab('login'));
 
     /* ── Update navbar UI based on auth state ───────────────────────── */
     function refreshAuthUI() {
@@ -1579,30 +1760,28 @@
         const name = AUTH.userName();
         const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || name.slice(0, 2).toUpperCase();
         userNameDisplay.textContent = name;
-        userAvatar.textContent = initials;
-        loginBtn.style.display  = 'none';
-        userChip.style.display  = 'flex';
-        logoutBtn.style.display = 'inline-flex';
+        userAvatar.textContent      = initials;
+        loginBtn.style.display      = 'none';
+        userChip.style.display      = 'flex';
+        logoutBtn.style.display     = 'inline-flex';
       } else {
-        loginBtn.style.display  = '';
-        userChip.style.display  = 'none';
-        logoutBtn.style.display = 'none';
+        loginBtn.style.display      = '';
+        userChip.style.display      = 'none';
+        logoutBtn.style.display     = 'none';
       }
     }
 
     /* ── Open / close modal ─────────────────────────────────────────── */
-    function openLoginModal() {
+    function openLoginModal(tab) {
       loginOverlay.classList.add('open');
-      document.getElementById('login-username').focus();
-      loginErrorEl.classList.remove('visible');
-      loginForm.reset();
+      switchAuthTab(tab || 'login');
     }
 
     function closeLoginModal() {
       loginOverlay.classList.remove('open');
     }
 
-    loginBtn.addEventListener('click', openLoginModal);
+    loginBtn.addEventListener('click', () => openLoginModal('login'));
     loginCloseBtn.addEventListener('click', closeLoginModal);
 
     // Close on backdrop click
@@ -1618,35 +1797,77 @@
     /* ── Login form submit ──────────────────────────────────────────── */
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const username = document.getElementById('login-username').value.trim();
+      const email    = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
 
-      if (!username) {
-        loginErrorEl.textContent = 'Please enter a username.';
+      if (!email) {
+        loginErrorEl.textContent = 'Please enter your email or phone.';
         loginErrorEl.classList.add('visible');
-        document.getElementById('login-username').focus();
+        document.getElementById('login-email').focus();
         return;
       }
       if (!password) {
-        loginErrorEl.textContent = 'Please enter a password.';
+        loginErrorEl.textContent = 'Please enter your password.';
         loginErrorEl.classList.add('visible');
         document.getElementById('login-password').focus();
         return;
       }
 
-      // Simulate successful login — any credentials work
-      AUTH.login(username);
+      // Restore name from stored account if available, else use email prefix
+      const storedName = localStorage.getItem('registeredName') || email.split('@')[0];
+      const storedRole = localStorage.getItem('userRole') || 'Client';
+      AUTH.login(storedName, storedRole);
       closeLoginModal();
       refreshAuthUI();
-      showToast(`👋 Welcome, ${username}! You're now logged in.`, 'success');
+      showToast(`🙏 Welcome to Sahayog, ${storedName}!`, 'success');
+    });
+
+    /* ── Sign Up form submit ────────────────────────────────────────── */
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name     = document.getElementById('signup-name').value.trim();
+      const phone    = document.getElementById('signup-phone').value.trim();
+      const role     = document.getElementById('signup-role').value;
+      const password = document.getElementById('signup-password').value;
+
+      if (!name) {
+        signupErrorEl.textContent = 'Please enter your full name.';
+        signupErrorEl.classList.add('visible');
+        document.getElementById('signup-name').focus();
+        return;
+      }
+      if (!phone || !/^\d{10}$/.test(phone)) {
+        signupErrorEl.textContent = 'Enter a valid 10-digit phone number.';
+        signupErrorEl.classList.add('visible');
+        document.getElementById('signup-phone').focus();
+        return;
+      }
+      if (!role) {
+        signupErrorEl.textContent = 'Please select your role.';
+        signupErrorEl.classList.add('visible');
+        document.getElementById('signup-role').focus();
+        return;
+      }
+      if (!password || password.length < 4) {
+        signupErrorEl.textContent = 'Password must be at least 4 characters.';
+        signupErrorEl.classList.add('visible');
+        document.getElementById('signup-password').focus();
+        return;
+      }
+
+      // Persist registration details for login recall
+      localStorage.setItem('registeredName', name);
+      AUTH.login(name, role);
+      closeLoginModal();
+      refreshAuthUI();
+      showToast(`🎉 Welcome to Sahayog, ${name}!`, 'success');
     });
 
     /* ── Logout ─────────────────────────────────────────────────────── */
     logoutBtn.addEventListener('click', () => {
-      const name = AUTH.userName();
       AUTH.logout();
       refreshAuthUI();
-      showToast(`👋 Goodbye, ${name}! You've been logged out.`, 'success');
+      showToast('👋 Logged out successfully.', 'success');
     });
 
     /* ── Restore session on page load ───────────────────────────────── */
